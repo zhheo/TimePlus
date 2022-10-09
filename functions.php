@@ -6,18 +6,16 @@ if($check_info=='1'){
 	echo '<font color=red>' . $message . '</font>';
 	die;
 }	
-	$hosturl = $_SERVER['HTTP_HOST']; 
-	$check_host = 'http://sq.zmki.cn/update.php';  
-	$check_message = $check_host . '?a=check_message&u=' . $_SERVER['HTTP_HOST'];
-	$message = file_get_contents($check_message); 
-    $v_time='2.0.0'; 
+  $data = json_decode(file_get_contents('https://plog.zhheo.com/releases.json'), true);
+  $message = $data['tag_name'];
+  $v_time='2.2'; 
 	if ($v_time == $message) {
-	echo	'当前版本：'.'V'.$v_time."&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp".'最新版本:'.'V'.$message;
+	echo	'当前版本：'.'v'.$v_time."&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp".'最新版本:'.'v'.$message;
 	} else  if ($v_time > $message){
-	echo  '当前版本：'.'V'.$v_time."&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp".'V'.$message;
+	echo  '当前版本：'.'v'.$v_time."&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp".'最新版本:'.'v'.$message;
 	}
 	  else  if ($v_time < $message) {
-	echo  '当前版本：'.'V'.$v_time."&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp".'发现新版本:'.'<span style="color:red;"><b>V '.$message.'</b></span>&nbsp&nbsp请更新，<a href="https://www.zmki.cn/4953.html" target="_blank">新版本特性</a>' ;  
+	echo  '当前版本：'.'v'.$v_time."&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp".'发现新版本:'.'<span style="color:red;"><b>v '.$message.'</b></span>&nbsp&nbsp请更新，<a href="https://github.com/zhheo/TimePlus/releases" target="_blank">新版本特性</a>' ;  
 } 
     //首页名称
     $IndexName = new Typecho_Widget_Helper_Form_Element_Text('IndexName', NULL, '时光相册', _t('首页的名称(必填)'), _t('输入你的首页显示的名称'));
