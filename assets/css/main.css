@@ -399,6 +399,7 @@ input, select, textarea {
 
 	h2 {
 		font-size: 2.25em;
+    line-height: 1;
 	}
 
 	h3 {
@@ -1415,17 +1416,20 @@ input, select, textarea {
 			background-image: -webkit-linear-gradient(to top, rgba(16,16,16,0.45) 25%, rgba(16,16,16,0) 100%);
 			background-image: -ms-linear-gradient(to top, rgba(16,16,16,0.45) 25%, rgba(16,16,16,0) 100%);
 			background-image: linear-gradient(to top, rgba(16,16,16,0.45) 25%, rgba(16,16,16,0) 100%);
-			bottom: 2rem;
+			bottom: 0rem;
 			cursor: default;
 			left: 0;
 			position: absolute;
 			text-align: left;
 			width: 100%;
 			z-index: 2;
+      padding-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
 		}
 
 			.poptrox-popup .caption h2, .poptrox-popup .caption h3, .poptrox-popup .caption h4, .poptrox-popup .caption h5, .poptrox-popup .caption h6 {
-				margin: 0 0 0.6em 0;
+				margin: 0;
 			}
 
 			.poptrox-popup .caption p {
