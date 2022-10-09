@@ -51,6 +51,7 @@
 				   	</a> 
 						<h2><?php $this->title() ?></h2>
 						<p><?php $this->content('Continue Reading...'); ?></p>
+            <li class="tag-categorys"><?php $this->category(','); ?></li>
 				   </article>
 				<?php endwhile; ?>
 			</div> 

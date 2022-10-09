@@ -1,5 +1,77 @@
-@import url(fontawesome-all.min.css);
+@charset  "UTF-8";
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic");
+
+:root{
+  --heo-white: #fff;
+  --heo-white-op: rgba(255,255,255,0.2);
+  --heo-black: #000;
+  --heo-black-op: rgba(0,0,0,0.2);
+  --heo-none: #00000000;
+  --heo-gray: #999999;
+  --heo-gray-op: #9999992b;
+  --heo-vip: #e5a80d;
+  --heo-main: var(--heo-theme);
+  --heo-main-op: var(--heo-theme-op);
+  --heo-main-none: var(--heo-theme-none);
+  --heo-shadow-theme: 0 8px 12px -3px var(--heo-theme-op);
+  --heo-shadow-blackdeep: 0 2px 16px -3px rgba(0, 0, 0,.15);
+  --heo-shadow-main: 0 8px 12px -3px var(--heo-main-op);
+  --heo-shadow-blue: 0 8px 12px -3px rgba(40, 109, 234,.20);
+  --heo-shadow-white: 0 8px 12px -3px rgba(255, 255, 255,.20);
+  --heo-shadow-black: 0 0 12px 4px rgba(0, 0, 0,.05);
+  --heo-shadow-yellow: 0px 38px 77px -26px rgba(255, 201, 62,.12);
+  --heo-shadow-red: 0 8px 12px -3px #ee7d7936;
+  --heo-shadow-green: 0 8px 12px -3px #87ee7936;
+  --heo-logo-color: linear-gradient(215deg,#4584ff 0%,#cf0db9 100%);
+  --heo-snackbar-time: 5s;
+  --style-border: 1px solid var(--heo-card-border);
+  --style-border-always: 1px solid var(--heo-card-border);
+  --style-border-hover: 1px solid var(--heo-main);
+  --style-border-hover-always: 1px solid var(--heo-main);
+  --style-border-dashed: 1px dashed var(--heo-theme-op);
+}
+
+::selection {
+  background: var(--heo-fontcolor);
+  color: var(--heo-background);
+}
+
+:root {
+  --heo-theme: #0084FF;
+  --heo-theme-op: #0084FF23;
+  --heo-theme-op-deep: #0084ffdd;
+  --heo-theme-none: #0084FF00;
+  --heo-blue: #0084FF;
+  --heo-red: #FF3842;
+  --heo-pink: #FF7C7C;
+  --heo-green: #57bd6a;
+  --heo-yellow: #ffc93e;
+  --heo-yellow-op: #ffc93e30;
+  --heo-orange: #ff953e;
+  --heo-fontcolor: #F7F7FA;
+  --heo-background: #18171d;
+  --heo-reverse: #fff;
+  --heo-maskbg: rgba(0,0,0, 0.6);
+  --heo-maskbgdeep: rgba(0,0,0, 0.85);
+  --heo-hovertext: #0A84FF;
+  --heo-ahoverbg: #fff;
+  --heo-lighttext: #f2b94b;
+  --heo-secondtext: #a1a2b8;
+  --heo-scrollbar: rgba(200, 200, 223, 0.4);
+  --heo-card-btn-bg: #30343f;
+  --heo-post-blockquote-bg: #000;
+  --heo-post-tabs-bg: #121212;
+  --heo-secondbg: #30343f;
+  --heo-shadow-nav:0 5px 20px 0px rgba(28, 28, 28, 0.4);
+  --heo-card-bg: #1d1e22;
+  --heo-card-bg-op: var(--heo-white-op);
+  --heo-card-bg-none: #1d1b2600;
+  --heo-shadow-lightblack:0 5px 12px -5px rgba(102, 68, 68, 0.0);
+  --heo-shadow-light2black:0 5px 12px -5px rgba(102, 68, 68, 0.0);
+  --heo-card-border: #282829;
+  --heo-shadow-border: 0 8px 16px -4px #00000050;
+  --style-border-forever: 2px solid var(--heo-lighttext);
+}
 
 /*
 	* 一个基于Typecho的相册模板。前端采用开源模板Multiverse，请尊重劳动成果  你可以在<a href="https://www.zmki.cn">钻芒博客</a>获得更多关于此皮肤的信息
@@ -291,7 +363,7 @@ input, select, textarea {
 
 		a:hover {
 			border-bottom-color: transparent;
-			color: #34a58e !important;
+			color: var(--heo-theme);
 		}
 
 	strong, b {
@@ -1343,7 +1415,7 @@ input, select, textarea {
 			background-image: -webkit-linear-gradient(to top, rgba(16,16,16,0.45) 25%, rgba(16,16,16,0) 100%);
 			background-image: -ms-linear-gradient(to top, rgba(16,16,16,0.45) 25%, rgba(16,16,16,0) 100%);
 			background-image: linear-gradient(to top, rgba(16,16,16,0.45) 25%, rgba(16,16,16,0) 100%);
-			bottom: 0;
+			bottom: 2rem;
 			cursor: default;
 			left: 0;
 			position: absolute;
@@ -1353,12 +1425,13 @@ input, select, textarea {
 		}
 
 			.poptrox-popup .caption h2, .poptrox-popup .caption h3, .poptrox-popup .caption h4, .poptrox-popup .caption h5, .poptrox-popup .caption h6 {
-				margin: 0 0 0.5em 0;
+				margin: 0 0 0.6em 0;
 			}
 
 			.poptrox-popup .caption p {
 				color: #ffffff;
 				font-size: 15px;
+        margin: 0.5rem 0!important;
 			}
 
 		.poptrox-popup .loader {
@@ -1404,6 +1477,24 @@ input, select, textarea {
 		body.touch .poptrox-popup .nav-next {
 			opacity: 1.0 !important;
 		}
+
+    .tag-categorys {
+      display: flex;
+    }
+
+    .tag-categorys a {
+      padding: 4px 6px;
+      border-radius: 8px;
+      background: var(--heo-white-op);
+      font-size: 12px;
+      color: var(--heo-fontcolor);
+      transition: 0.3s;
+    }
+
+    .tag-categorys a:hover {
+      background: var(--heo-theme);
+      color: var(--heo-white);
+    }
 
 		@media screen and (max-width: 980px) {
 
