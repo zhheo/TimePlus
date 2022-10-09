@@ -71,7 +71,7 @@
 								<span style="color: #b5b5b5; font-size: 0.8em;">
 									<?php $this->options->cnzz()?>
 								<p class="copyright">
-									&copy; Design ZHHEO & ZMKI  THEME:<a href="https://www.zmki.cn/4953.html" target="_blank" rel="noopener nofollow">TimePro</a>. ICP备案号:<a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow"><?php $this->options->icp()?></a>
+									&copy; Design ZHHEO & ZMKI  THEME:<a href="https://github.com/zhheo/TimePlus" target="_blank" rel="noopener nofollow">TimePro</a>. ICP备案号:<a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow"><?php $this->options->icp()?></a>
 								</p>
 							</div>
 							</div>
