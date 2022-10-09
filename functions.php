@@ -23,8 +23,11 @@ if($check_info=='1'){
     $IndexName = new Typecho_Widget_Helper_Form_Element_Text('IndexName', NULL, '时光相册', _t('首页的名称(必填)'), _t('输入你的首页显示的名称'));
     $form->addInput($IndexName);
     //网站图标
-    $IconUrl = new Typecho_Widget_Helper_Form_Element_Text('IconUrl', NULL, '', _t('网站图标地址'), _t('输入网站的图标'));
+    $IconUrl = new Typecho_Widget_Helper_Form_Element_Text('IconUrl', NULL, '', _t('网站图标地址'), _t('输入网站的图标（建议200px宽度png）'));
     $form->addInput($IconUrl);
+    //Apple网站图标
+    $AppleIcon = new Typecho_Widget_Helper_Form_Element_Text('AppleIcon', NULL, '', _t('兼容Apple设备的图标'), _t('建议使用有背景无圆角矩形图标，在被iOS添加到书签或桌面后显示此图标（建议200px宽度png）'));
+    $form->addInput($AppleIcon);
     //首页名称后缀（必填）
     $Indexdict = new Typecho_Widget_Helper_Form_Element_Text('Indexdict', NULL, '采用Time。', _t('首页的名称后缀(必填)'), _t('输入你的首页显示的名称后缀'));
     $form->addInput($Indexdict);

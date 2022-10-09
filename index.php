@@ -3,7 +3,7 @@
  * 一款相册主题，Plus系列目前由Heo维护
  * @package TimePlus
  * @author zhheo
- * @version 2.0.0
+ * @version 2.1
  * @link https://zhheo.com/
  */
 ?>
@@ -15,6 +15,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<meta name="keywords" content="<?php $this->options->keywords(); ?>"/>
 		<meta name="description" content="<?php $this->options->description(); ?>"/>
+    <link rel="apple-touch-icon" href="<?php $this->options->AppleIcon(); ?>">
+    <meta name="apple-mobile-web-app-title" content="<?php $this->options->IndexName(); ?>">
+    <link rel="bookmark" href="<?php $this->options->AppleIcon(); ?>">
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="<?php $this->options->AppleIcon(); ?>" >
     <link rel="icon" href="<?php $this->options->IconUrl() ?>">
 		<link rel="stylesheet" type="text/css" href="<?php $this->options->themeUrl('assets/css/main.css'); ?>" />
 		<link rel="stylesheet" type="text/css" href="<?php $this->options->themeUrl('assets/css/noscript.css'); ?>" />
@@ -47,6 +51,7 @@
 				   	</a> 
 						<h2><?php $this->title() ?></h2>
 						<p><?php $this->content('Continue Reading...'); ?></p>
+            <li class="tag-categorys"><?php $this->category(','); ?></li>
 				   </article>
 				<?php endwhile; ?>
 			</div> 
@@ -71,7 +76,7 @@
 								<span style="color: #b5b5b5; font-size: 0.8em;">
 									<?php $this->options->cnzz()?>
 								<p class="copyright">
-									&copy; Design ZHHEO & ZMKI  THEME:<a href="https://www.zmki.cn/4953.html" target="_blank" rel="noopener nofollow">TimePro</a>. ICP备案号:<a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow"><?php $this->options->icp()?></a>
+									&copy; 设计 ZHHEO & ZMKI 主题：<a href="https://github.com/zhheo/TimePlus" target="_blank" rel="noopener nofollow">TimePro</a>. ICP备案号:<a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow"><?php $this->options->icp()?></a>
 								</p>
 							</div>
 							</div>
