@@ -1,4 +1,6 @@
-# TimePlus For Typecho相册模板
+# TimePlus For Typecho
+
+![](https://img.zhheo.com/i/2022/10/09/63425c8e03dcf.webp)
 
 原作者两年都没有维护这个主题了，很喜欢这个主题想要更快速的迭代优化，所以新开了这个坑。基于原作者的[Time主题](github.com/wclk/time)更新全新的TimePlus。
 
