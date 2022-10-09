@@ -1211,7 +1211,7 @@ input, select, textarea {
 		transition: transform 0.5s ease;
 		-webkit-overflow-scrolling: touch;
 		background: rgba(36, 38, 41, 0.975);
-		bottom: 4em;
+		bottom: 80px;
 		left: 0;
 		max-height: calc(80vh - 4em);
 		overflow-y: auto;
@@ -1570,6 +1570,7 @@ input, select, textarea {
 				visibility: visible;
 				z-index: 10003;
         backdrop-filter: saturate(180%) blur(20px);
+        -webkit-backdrop-filter: blur(20px);
 			}
 
 		#wrapper:before {
@@ -1635,15 +1636,18 @@ input, select, textarea {
 		-webkit-user-select: none;
 		background: rgba(18, 18, 18, 0.8);
     backdrop-filter: saturate(180%) blur(20px);
-		top: calc(100vh - 4em);
-		height: 5em;
+    -webkit-backdrop-filter: blur(20px);
+		top: calc(100vh - 80px);
+		height: 80px;
 		left: 0;
-		line-height: 4em;
+		line-height: 1;
 		padding: 0 1.5em;
 		position: fixed;
 		user-select: none;
 		width: 100%;
 		z-index: 10002;
+    display: flex;
+    align-items: center;
 	}
 
 		body.is-preload #header {
@@ -1675,9 +1679,7 @@ input, select, textarea {
 				}
 
 		#header nav {
-			position: absolute;
-			right: 0;
-			top: 0;
+			margin-left: auto;
 		}
 
 			#header nav > ul {
@@ -1702,6 +1704,8 @@ input, select, textarea {
 						letter-spacing: 0.1em;
 						padding: 0 1.65em;
 						text-transform: uppercase;
+            padding: 8px 16px;
+            border-radius: 8px;
 					}
 
 						#header nav > ul > li a.icon:before {
@@ -1715,8 +1719,15 @@ input, select, textarea {
 						}
 
 						#header nav > ul > li a.active {
-							background-color: #242629;
+							background-color: var(--heo-secondbg);
 						}
+      
+  .site-logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+    margin-right: 1rem;
+  }
 
 	@media screen and (max-width: 736px) {
 
@@ -1730,7 +1741,7 @@ input, select, textarea {
 			-ms-transform: translateY(0);
 			transform: translateY(0);
 			bottom: auto;
-			height: 4em;
+			height: 60px;
 			padding: 0 1em;
 			top: 0;
 		}
@@ -1748,7 +1759,8 @@ input, select, textarea {
 
 			#header nav > ul > li a {
 				font-size: 0.9em;
-				padding: 0 1.15em;
+				padding: 8px 16px;
+        border-radius: 8px;
 			}
 
 	}
@@ -1859,6 +1871,7 @@ input, select, textarea {
 				opacity: 1;
 				visibility: visible;
         backdrop-filter: saturate(180%) blur(20px);
+        -webkit-backdrop-filter: blur(20px);
 			}
 
 		body.is-preload #main .thumb {

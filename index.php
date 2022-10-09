@@ -30,6 +30,7 @@
 	</head>
 	<body class="is-preload">
   <header id="header">
+            <a href="<?php $this->options->siteUrl(); ?>"><img class="site-logo" src="<?php $this->options->IconUrl(); ?>"></a>
 						<h1><a href="<?php $this->options->siteUrl(); ?>"><strong><?php $this->options->zmkiabout() ?></strong> <?php $this->options->zmkiabouts() ?></a></h1>
 						<nav>
 							<ul>
@@ -76,7 +77,7 @@
 								<span style="color: #b5b5b5; font-size: 0.8em;">
 									<?php $this->options->cnzz()?>
 								<p class="copyright">
-									&copy; 设计 ZHHEO & ZMKI 主题：<a href="https://github.com/zhheo/TimePlus" target="_blank" rel="noopener nofollow">TimePro</a>. ICP备案号:<a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow"><?php $this->options->icp()?></a>
+									&copy; 设计 ZHHEO & ZMKI 主题：<a href="https://github.com/zhheo/TimePlus" target="_blank" rel="noopener nofollow">TimePlus</a>. ICP备案号:<a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow"><?php $this->options->icp()?></a>
 								</p>
 							</div>
 							</div>
