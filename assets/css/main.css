@@ -115,6 +115,10 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     url('//at.alicdn.com/t/font_1635479_m8o2ir6mitf.svg#iconfont') format('svg');
 }
 
+li {
+  list-style-type:none;
+}
+
 .icon-zmki {
   width: 1em;
   height: 1em;
@@ -139,6 +143,15 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
   .zmki_wap {
     display: none;
   }
+
+  #fullscreen {
+    display: none!important;
+    padding: 0!important;
+  }
+}
+
+.nav-item-name::before {
+  display: none!important;
 }
 
 /*手机端适配  常规尺寸*/
@@ -1639,15 +1652,21 @@ body.touch .poptrox-popup .nav-next {
 .tag-categorys a {
   padding: 4px 6px;
   border-radius: 8px;
-  background: var(--heo-white-op);
+  background: var(--heo-black-op);
   font-size: 12px;
   color: var(--heo-fontcolor);
   transition: 0.3s;
+  z-index: 1;
+  margin:  12px 0 0 12px;
 }
 
 .tag-categorys a:hover {
   background: var(--heo-theme);
   color: var(--heo-white);
+}
+
+.poptrox-popup .tag-categorys a {
+  margin:  0;
 }
 
 @media screen and (max-width: 980px) {
@@ -1677,6 +1696,10 @@ body.touch .poptrox-popup .nav-next {
   .poptrox-popup .nav-previous,
   .poptrox-popup .nav-next {
     display: none !important;
+  }
+
+  .nav-item .nav-item-child {
+    top: 30px;
   }
 
 }
@@ -1834,11 +1857,44 @@ body.is-preload #header {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
 }
 
 #header nav>ul>li {
-  display: inline-block;
+  display: flex;
   padding: 0;
+  position: relative;
+  list-style-type:none;
+  justify-content: center;
+}
+
+.nav-item .nav-item-child {
+  position: absolute;
+  bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  margin-bottom: 0;
+  padding: 8px;
+  align-items: center;
+  background: var(--heo-maskbg);
+  border-radius: 8px;
+  opacity: 0;
+  height: fit-content;
+}
+
+.nav-item .category-parent {
+  border-radius: 6px;
+  transition: 0.3s;
+  font-size: 14px;
+}
+
+.nav-item .category-parent:hover {
+  background: var(--heo-theme);
+}
+
+.nav-item:hover .nav-item-child {
+  opacity: 1;
 }
 
 #header nav>ul>li a {

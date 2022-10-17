@@ -34,6 +34,7 @@
 						<h1><a href="<?php $this->options->siteUrl(); ?>"><strong><?php $this->options->zmkiabout() ?></strong> <?php $this->options->zmkiabouts() ?></a></h1>
 						<nav>
 							<ul>
+                <li class='nav-item'><a class="icon solid fa-info-circle nav-item-name">分类</a><?php \Widget\Metas\Category\Rows::alloc()->listCategories('wrapClass=nav-item-child'); ?></li>
 								<li><a type="button" id="fullscreen" class="btn btn-default visible-lg visible-md" alt="切换全屏"><svg  class="icon-zmki zmki_dh zmki_wap" aria-hidden="true"><use xlink:href="#icon-zmki-ziyuan-copy"></use></svg></a></li>
 								<li><a href="#footer" class="icon solid fa-info-circle">关于</a></li>
 							</ul>
