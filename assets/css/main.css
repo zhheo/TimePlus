@@ -1881,6 +1881,7 @@ body.is-preload #header {
   border-radius: 8px;
   opacity: 0;
   height: fit-content;
+  transition: 0.3s;
 }
 
 .nav-item .category-parent {
