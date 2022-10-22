@@ -27,7 +27,7 @@ function themeConfig($form)
   }
   $data = json_decode(file_get_contents('https://plog.zhheo.com/usr/themes/time/releases.json'), true);
   $message = $data['tag_name'];
-  $v_time = '2.2';
+  $v_time = '2.3';
   if ($v_time == $message) {
     echo  'TimePlus&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp当前版本：' . 'v' . $v_time . "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" . '最新版本:' . 'v' . $message;
   } else  if ($v_time > $message) {

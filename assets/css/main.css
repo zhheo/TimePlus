@@ -1868,6 +1868,10 @@ body.is-preload #header {
   justify-content: center;
 }
 
+#header .discription {
+  margin-left: 8px;
+}
+
 .nav-item .nav-item-child {
   position: absolute;
   bottom: 30px;
@@ -1881,6 +1885,7 @@ body.is-preload #header {
   border-radius: 8px;
   opacity: 0;
   height: fit-content;
+  transition: 0.3s;
 }
 
 .nav-item .category-parent {
@@ -1965,6 +1970,10 @@ body.is-preload #header {
     font-size: 0.9em;
     padding: 8px 16px;
     border-radius: 8px;
+  }
+
+  #header .discription {
+    display: none;
   }
 
 }
