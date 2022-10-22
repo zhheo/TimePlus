@@ -31,7 +31,8 @@
 	<body class="is-preload">
   <header id="header">
             <a href="<?php $this->options->siteUrl(); ?>"><img class="site-logo" src="<?php $this->options->IconUrl(); ?>"></a>
-						<h1><a href="<?php $this->options->siteUrl(); ?>"><strong><?php $this->options->zmkiabout() ?></strong> <?php $this->options->zmkiabouts() ?></a></h1>
+						<h1><a href="<?php $this->options->siteUrl(); ?>"><strong><?php $this->options->zmkiabout() ?></strong></h1></a>
+            <span class="discription"><?php $this->options->zmkiabouts() ?></span>
 						<nav>
 							<ul>
                 <li class='nav-item'><a class="icon solid fa-info-circle nav-item-name">分类</a><?php \Widget\Metas\Category\Rows::alloc()->listCategories('wrapClass=nav-item-child'); ?></li>
