@@ -3,7 +3,7 @@
  * 一款相册主题，Plus系列目前由Heo维护
  * @package TimePlus
  * @author zhheo
- * @version 2.2
+ * @version 2.4
  * @link https://zhheo.com/
  */
 ?>
@@ -24,7 +24,7 @@
 		<link rel="stylesheet" type="text/css" href="<?php $this->options->themeUrl('assets/css/noscript.css'); ?>" />
 		<noscript><link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/noscript.css'); ?>" /></noscript>
 		<link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/main.css'); ?>" />
-		<link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css">
+		<link rel="stylesheet" href="https://cdn3.codesign.qq.com/icons/dDyopjDLkGjVe1g/latest/iconfont.css">
 		<link rel="stylesheet" href="//at.alicdn.com/t/font_1635479_m8o2ir6mitf.css">
 		<script src="https://at.alicdn.com/t/font_1635479_m8o2ir6mitf.js"></script>  
 	</head>
@@ -37,7 +37,7 @@
 							<ul>
                 <li class='nav-item'><a class="icon solid fa-info-circle nav-item-name">分类</a><?php \Widget\Metas\Category\Rows::alloc()->listCategories('wrapClass=nav-item-child'); ?></li>
 								<li><a type="button" id="fullscreen" class="btn btn-default visible-lg visible-md" alt="切换全屏"><svg  class="icon-zmki zmki_dh zmki_wap" aria-hidden="true"><use xlink:href="#icon-zmki-ziyuan-copy"></use></svg></a></li>
-								<li><a href="#footer" class="icon solid fa-info-circle">关于</a></li>
+								<li><a href="#footer">关于</a></li>
 							</ul>
 						</nav>
 					</header>
@@ -71,9 +71,9 @@
 								<section>
 									<h2>联系我</h2>
 									<ul class="icons">	
-                    <li><a href="<?php $this->options->xxhome()?>" target="_blank" class="icon solid fa-house" rel="noopener nofollow"><span class="label">HOOME</span></a></li>
-						        <li><a href="<?php $this->options->xxweibo()?>"  target="_blank" class="icon brands fa-weibo" rel="noopener nofollow"><span class="label">weibo</span></a></li>
-                    <li><a href="<?php $this->options->xxgithub()?> "  target="_blank" class="icon brands fa-github" rel="noopener nofollow"><span class="label">GitHub</span></a></li>
+                    <li><a href="<?php $this->options->xxhome()?>" target="_blank" class="iconfont icon-shouye" rel="noopener nofollow"><span class="label">首页</span></a></li>
+						        <li><a href="<?php $this->options->xxweibo()?>"  target="_blank" class="iconfont icon-weibo" rel="noopener nofollow"><span class="label">微博</span></a></li>
+                    <li><a href="<?php $this->options->xxgithub()?> "  target="_blank" class="iconfont icon-github" rel="noopener nofollow"><span class="label">GitHub</span></a></li>
 										</ul>
 								</section> 
 								<span style="color: #b5b5b5; font-size: 0.8em;">

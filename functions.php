@@ -27,13 +27,14 @@ function themeConfig($form)
   }
   $data = json_decode(file_get_contents('https://plog.zhheo.com/usr/themes/time/releases.json'), true);
   $message = $data['tag_name'];
-  $v_time = '2.3';
-  if ($v_time == $message) {
-    echo  'TimePlus&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp当前版本：' . 'v' . $v_time . "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" . '最新版本:' . 'v' . $message;
-  } else  if ($v_time > $message) {
-    echo  'TimePlus&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp当前版本：' . 'v' . $v_time . "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" . '最新版本:' . 'v' . $message;
-  } else  if ($v_time < $message) {
-    echo  'TimePlus&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp当前版本：' . 'v' . $v_time . "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" . '发现新版本:' . '<span style="color:red;"><b>v ' . $message . '</b></span>&nbsp&nbsp请更新，<a href="https://github.com/zhheo/TimePlus/releases" target="_blank">新版本特性</a>';
+  //当前版本号
+  $selfmessage = '2.4';
+  if ($selfmessage == $message) {
+    echo  'TimePlus&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp当前版本：' . 'v' . $selfmessage . "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" . '最新版本:' . 'v' . $message;
+  } else  if ($selfmessage > $message) {
+    echo  'TimePlus&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp当前版本：' . 'v' . $selfmessage . "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" . '最新版本:' . 'v' . $message;
+  } else  if ($selfmessage < $message) {
+    echo  'TimePlus&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp当前版本：' . 'v' . $selfmessage . "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" . '发现新版本:' . '<span style="color:red;"><b>v ' . $message . '</b></span>&nbsp&nbsp请更新，<a href="https://github.com/zhheo/TimePlus/releases" target="_blank">新版本特性</a>';
   }
   //首页名称
   $IndexName = new Typecho_Widget_Helper_Form_Element_Text('IndexName', NULL, '时光相册', _t('首页的名称(必填)'), _t('输入你的首页显示的名称'));
