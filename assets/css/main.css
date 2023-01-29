@@ -104,17 +104,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
   background: #1f2224;
 }
 
-@font-face {
-  font-family: 'iconfont';
-  /* project id 1635479 */
-  src: url('//at.alicdn.com/t/font_1635479_m8o2ir6mitf.eot');
-  src: url('//at.alicdn.com/t/font_1635479_m8o2ir6mitf.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_1635479_m8o2ir6mitf.woff2') format('woff2'),
-    url('//at.alicdn.com/t/font_1635479_m8o2ir6mitf.woff') format('woff'),
-    url('//at.alicdn.com/t/font_1635479_m8o2ir6mitf.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_1635479_m8o2ir6mitf.svg#iconfont') format('svg');
-}
-
 li {
   list-style-type:none;
 }
@@ -1042,39 +1031,18 @@ input[type="radio"]+label:before {
 
 /* Icon */
 
-.icon {
+.iconfont {
   text-decoration: none;
   border-bottom: none;
   position: relative;
 }
 
-.icon:before {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
-  line-height: 1;
-  text-transform: none !important;
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 400;
-}
-
-.icon>.label {
+.iconfont>.label {
   display: none;
 }
 
-.icon:before {
+.iconfont:before {
   line-height: inherit;
-}
-
-.icon.solid:before {
-  font-weight: 900;
-}
-
-.icon.brands:before {
-  font-family: 'Font Awesome 5 Brands';
 }
 
 /* List */
@@ -1263,12 +1231,16 @@ ul.icons li:last-child {
   padding-right: 0;
 }
 
-ul.icons li .icon:before {
-  font-size: 1.2rem;
+ul.icons li .iconfont:before {
+  font-size: 28px;
+  line-height: 1;
+  height: 28px;
+  margin: auto;
+  display: contents;
 }
 
 
-ul.icons li .icon {
+ul.icons li .iconfont {
   color: var(--heo-card-bg);
   width: 40px;
   height: 40px;
@@ -1280,7 +1252,7 @@ ul.icons li .icon {
   transition: 0.3s;
 }
 
-ul.icons li:hover .icon {
+ul.icons li:hover .iconfont {
   color: var(--heo-fontcolor);
   background: var(--heo-theme);
 }

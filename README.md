@@ -25,6 +25,7 @@ Demo: [立即查看](https://plog.zhheo.com/)
 ## 最新版本 2.4
 
 - 修改最新版本检测逻辑
+- 图标移除fontawesome
 
 ## 致谢:
 
