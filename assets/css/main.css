@@ -1847,7 +1847,6 @@ body.is-preload #header {
 .nav-item .nav-item-child {
   position: absolute;
   bottom: 30px;
-  display: flex;
   flex-direction: column;
   width: 120px;
   margin-bottom: 0;
@@ -1855,7 +1854,7 @@ body.is-preload #header {
   align-items: center;
   background: var(--heo-maskbg);
   border-radius: 8px;
-  opacity: 0;
+  display: none;
   height: fit-content;
   transition: 0.3s;
 }
@@ -1871,7 +1870,7 @@ body.is-preload #header {
 }
 
 .nav-item:hover .nav-item-child {
-  opacity: 1;
+  display: flex;
 }
 
 #header nav>ul>li a {
