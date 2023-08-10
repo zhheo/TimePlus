@@ -3,7 +3,7 @@
  * 一款相册主题，Plus系列目前由Heo维护
  * @package TimePlus
  * @author zhheo
- * @version 2.4
+ * @version 2.5
  * @link https://zhheo.com/
  */
 ?>
