@@ -2,7 +2,7 @@
 
 ![](/info/timeplus.webp)
 
-原作者两年都没有维护这个主题了，跑路到Wordpress上了。我个人很喜欢这个主题想要更快速的迭代优化，所以打算继续维护这个主题。基于原作者的[Time主题](github.com/wclk/time)更新全新的TimePlus。
+原作者两年都没有维护这个主题了，跑路到Wordpress上了。我个人很喜欢这个主题想要更快速的迭代优化，所以打算继续维护这个主题。基于原作者的[Time主题](https://github.com/wclk/time)更新全新的TimePlus。
 
 起名“TimePlus”的寓意是期望能将这个主题继续延续下去。
 
