@@ -1655,13 +1655,17 @@ body.touch .poptrox-popup .nav-next {
 }
 
 @media screen and (max-width: 736px) {
+  .poptrox-popup {
+    border-radius: 0px!important;
+  }
 
   .poptrox-popup:before {
     display: none;
   }
 
   .poptrox-popup .caption {
-    display: none !important;
+    bottom: 30px;
+    position: fixed;
   }
 
   .poptrox-popup .closer,
