@@ -3,7 +3,7 @@
  * 一款相册主题，Plus系列目前由Heo维护
  * @package TimePlus
  * @author zhheo
- * @version 2.5
+ * @version 2.7
  * @link https://zhheo.com/
  */
 ?>
@@ -35,12 +35,31 @@
             <span class="discription"><?php $this->options->zmkiabouts() ?></span>
 						<nav>
 							<ul>
-                <li class='nav-item'><a class="icon solid fa-info-circle nav-item-name">分类</a><?php \Widget\Metas\Category\Rows::alloc()->listCategories('wrapClass=nav-item-child'); ?></li>
+
+              
+              <li class='nav-item'>
+    <a class="icon solid fa-info-circle nav-item-name">分类</a>
+    <ul class="nav-item-child">
+        <?php
+        $categories = \Widget\Metas\Category\Rows::alloc()->listCategories();
+        echo '<li class="category-level-0 category-parent"><a style="cursor: pointer;" href="/">全部</a></li>';
+        if ($categories) {
+            foreach ($categories as $category) {
+                echo '<li class="category-level-0 category-parent"><a style="cursor: pointer;">' . $category . '</a></li>';
+            }
+        }
+        ?>
+    </ul>
+</li>
+
+
+
 								<li><a type="button" id="fullscreen" class="btn btn-default visible-lg visible-md" alt="切换全屏"><svg  class="icon-zmki zmki_dh zmki_wap" aria-hidden="true"><use xlink:href="#icon-zmki-ziyuan-copy"></use></svg></a></li>
 								<li><a href="#footer">关于</a></li>
 							</ul>
 						</nav>
 					</header>
+
 		<!-- Wrapper -->
 		<div id="wrapper">
 				<!-- Header -->
@@ -82,8 +101,7 @@
 									&copy; 设计 ZHHEO & ZMKI 主题：<a href="https://github.com/zhheo/TimePlus" target="_blank" rel="noopener nofollow">TimePlus</a>. ICP备案号:<a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow"><?php $this->options->icp()?></a>
 								</p>
 							</div>
-							</div>
-						<div>
+            </div>
 					</footer>
 <script type="text/javascript">
 function isInSight(el) {

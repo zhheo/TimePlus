@@ -73,18 +73,6 @@
   --style-border-forever: 2px solid var(--heo-lighttext);
 }
 
-/*
-* 一个基于Typecho的相册模板。前端采用开源模板Multiverse，请尊重劳动成果  你可以在<a href="https://www.zmki.cn">钻芒博客</a>获得更多关于此皮肤的信息
-* 
-* @package Time
-* @author zmki
-* @version 1.0.0
-* @link https://www.zmki.cn/	
-Multiverse by HTML5 UP
-html5up.net | @ajlkn
-Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-
-*/
 ::-webkit-scrollbar {
   /*滚动条整体样式*/
   width: 5px;
@@ -510,11 +498,9 @@ h4,
 h5,
 h6 {
   color: #ffffff;
-  font-weight: 300;
-  letter-spacing: 0.1em;
+  font-weight: bold;
   line-height: 0;
-  margin: 0 0 1em 0;
-  text-transform: uppercase;
+  margin: 0 0 16px 0;
 }
 
 h1 a,
@@ -1059,7 +1045,7 @@ ol li {
 
 ul {
   list-style: disc;
-  margin: 0 0 2em 0;
+  margin: 0 0 0 0;
   padding-left: 1em;
 }
 
@@ -1565,12 +1551,13 @@ table.alt tfoot {
 .poptrox-popup .caption h5,
 .poptrox-popup .caption h6 {
   margin: 0;
+  font-weight: bold;
 }
 
 .poptrox-popup .caption p {
   color: #ffffff;
   font-size: 15px;
-  margin: 0.5rem 0 !important;
+  margin: 4px 0 !important;
 }
 
 .poptrox-popup .loader {
@@ -1852,15 +1839,26 @@ body.is-preload #header {
   position: absolute;
   bottom: 30px;
   flex-direction: column;
-  width: 120px;
   margin-bottom: 0;
   padding: 8px;
   align-items: center;
   background: var(--heo-maskbg);
   border-radius: 8px;
-  display: none;
+  display: flex;
   height: fit-content;
   transition: 0.3s;
+  opacity: 0;
+  pointer-events: none;
+  backdrop-filter: blur(10px);
+}
+
+.nav-item-child > ul {
+  padding-left: 0;
+}
+
+li.category-level-0.category-parent {
+  width: 100%;
+  text-align: center;
 }
 
 .nav-item .category-parent {
@@ -1875,6 +1873,8 @@ body.is-preload #header {
 
 .nav-item:hover .nav-item-child {
   display: flex;
+  opacity: 1;
+  pointer-events: all;
 }
 
 #header nav>ul>li a {
@@ -1890,6 +1890,7 @@ body.is-preload #header {
   text-transform: uppercase;
   padding: 8px 16px;
   border-radius: 8px;
+  white-space: nowrap;
 }
 
 #header nav>ul>li a.icon:before {
@@ -2021,7 +2022,7 @@ body.is-preload #header {
   pointer-events: none;
   bottom: 1.875em;
   font-size: 0.8em;
-  left: 2.1875em;
+  left: 16px;
   margin: 0;
   position: absolute;
   z-index: 1;
