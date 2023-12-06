@@ -87,7 +87,9 @@
 									<h2>关于<?php $this->options->IndexName() ?></h2>
 									<p><?php $this->options->Biglogo () ?></p>
 								</section>
-								<section>
+								<section style="
+    margin-bottom: 1.8rem;
+">
 									<h2>联系我</h2>
 									<ul class="icons">	
                     <li><a href="<?php $this->options->xxhome()?>" target="_blank" class="iconfont icon-shouye" rel="noopener nofollow"><span class="label">首页</span></a></li>
