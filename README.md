@@ -22,11 +22,6 @@ Demo: [立即查看](https://plog.zhheo.com/)
 
 配合图片处理: [查看教程](https://github.com/zhheo/TimePlus/wiki/%E9%98%BF%E9%87%8C%E4%BA%91oss%E3%80%81%E5%8F%88%E6%8B%8D%E4%BA%91%E5%82%A8%E5%AD%98%E7%AD%89%E5%82%A8%E5%AD%98%E6%A1%B6%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86%E4%BB%8B%E7%BB%8D-%E2%80%93%E9%85%8D%E5%90%88-Time%E6%97%B6%E5%85%89%E7%9B%B8%E5%86%8C%E4%BD%BF%E7%94%A8)
 
-## 最新版本 2.4
-
-- 修改最新版本检测逻辑
-- 图标移除fontawesome
-
 ## 致谢:
 
 - wclk

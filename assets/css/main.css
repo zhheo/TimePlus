@@ -5,7 +5,8 @@
   --heo-white: #fff;
   --heo-white-op: rgba(255, 255, 255, 0.2);
   --heo-black: #000;
-  --heo-black-op: rgba(0, 0, 0, 0.2);
+  --heo-black-op: rgba(0, 0, 0, 0.3);
+  --heo-black-opdeep: rgba(0, 0, 0, 0.8);
   --heo-none: #00000000;
   --heo-gray: #999999;
   --heo-gray-op: #9999992b;
@@ -519,7 +520,7 @@ h1 {
 
 h2 {
   font-size: 2.25em;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 h3 {
@@ -1557,7 +1558,7 @@ table.alt tfoot {
 .poptrox-popup .caption p {
   color: #ffffff;
   font-size: 15px;
-  margin: 4px 0 !important;
+  margin: 4px 0 12px 0!important;
 }
 
 .poptrox-popup .loader {
@@ -1617,6 +1618,8 @@ body.touch .poptrox-popup .nav-next {
   transition: 0.3s;
   z-index: 1;
   margin:  12px 0 0 12px;
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .tag-categorys a:hover {
@@ -1626,6 +1629,11 @@ body.touch .poptrox-popup .nav-next {
 
 .poptrox-popup .tag-categorys a {
   margin:  0;
+  background: var(--heo-black-opdeep);
+}
+
+.poptrox-popup .tag-categorys a:hover {
+  background: var(--heo-theme);
 }
 
 @media screen and (max-width: 980px) {
