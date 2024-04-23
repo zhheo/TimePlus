@@ -6,7 +6,7 @@ function themeConfig($form)
     echo '<font color=red>' . $message . '</font>';
     die;
   }
-  $data = json_decode(file_get_contents('https://plog.zhheo.com/usr/themes/time/releases.json'), true);
+  $data = json_decode(file_get_contents('https://plog.zhheo.com/usr/themes/TimePlus/releases.json'), true);
   $message = $data['tag_name'];
   //当前版本号
   $selfmessage = '2.9';

@@ -519,7 +519,7 @@ h1 {
 }
 
 h2 {
-  font-size: 2.25em;
+  font-size: 1.3rem;
   line-height: 1.2;
 }
 
@@ -1150,6 +1150,13 @@ ul.actions.fit.stacked {
   width: 100%;
 }
 
+a.contact_link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
 @media screen and (max-width: 480px) {
 
   ul.actions:not(.fixed) {
@@ -1223,7 +1230,7 @@ ul.icons li .iconfont:before {
   line-height: 1;
   height: 28px;
   margin: auto;
-  display: contents;
+  display: flex;
 }
 
 

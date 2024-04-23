@@ -3,7 +3,7 @@
  * 一款相册主题，Plus系列目前由Heo维护
  * @package TimePlus
  * @author zhheo
- * @version 2.8
+ * @version 2.9
  * @link https://zhheo.com/
  */
 ?>
@@ -28,8 +28,6 @@
   </noscript>
   <link rel="stylesheet" href="<?php $this->options->themeUrl('assets/css/main.css'); ?>" />
   <link rel="stylesheet" href="https://cdn3.codesign.qq.com/icons/dDyopjDLkGjVe1g/latest/iconfont.css">
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_1635479_m8o2ir6mitf.css">
-  <script src="https://at.alicdn.com/t/font_1635479_m8o2ir6mitf.js"></script>
 </head>
 
 <body class="is-preload">
@@ -103,12 +101,12 @@
 ">
                 <h2>联系我</h2>
                 <ul class="icons">
-                  <li><a href="<?php $this->options->xxhome() ?>" target="_blank" class="iconfont icon-shouye"
-                      rel="noopener nofollow"><span class="label">首页</span></a></li>
-                  <li><a href="<?php $this->options->xxweibo() ?>" target="_blank" class="iconfont icon-weibo"
-                      rel="noopener nofollow"><span class="label">微博</span></a></li>
-                  <li><a href="<?php $this->options->xxgithub() ?> " target="_blank" class="iconfont icon-github"
-                      rel="noopener nofollow"><span class="label">GitHub</span></a></li>
+                  <li><a class="contact_link" href="<?php $this->options->xxhome() ?>" target="_blank"
+                      rel="noopener nofollow"><i class="iconfont icon-shouye"></i></a></li>
+                  <li><a class="contact_link" href="<?php $this->options->xxweibo() ?>" target="_blank"
+                      rel="noopener nofollow"><i class="iconfont icon-weibo"></i></a></li>
+                  <li><a class="contact_link" href="<?php $this->options->xxgithub() ?> " target="_blank"
+                      rel="noopener nofollow"><i class="iconfont icon-github"></i></a></li>
                 </ul>
               </section>
               <span style="color: #b5b5b5; font-size: 0.8em;">
