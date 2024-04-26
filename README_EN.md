@@ -1,5 +1,7 @@
 # TimePlus For Typecho
 
+[中文 README](README.md)
+
 ![](/info/timeplus.webp)
 
 The original author hasn't maintained this theme for two years and has moved to Wordpress. I personally really like this theme and want to iterate and optimize it more quickly, so I'm planning to continue maintaining this theme. Based on the original author's [Time theme](https://github.com/wclk/time), I'm updating it to create a brand new TimePlus.
