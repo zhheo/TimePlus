@@ -304,7 +304,7 @@ function enterfullscreen() { //进入全屏
 }
 
 function exitfullscreen() { //退出全屏
-    $("#fullscreen").html('<svg  class="icon-zmki zmki_dh" aria-hidden="true"><use xlink:href="#icon-zmki-ziyuan-copy"></use></svg>');
+    $("#fullscreen").html('<i class="iconfont icon-quanping"></i><use xlink:href="#icon-zmki-ziyuan-copy"></use></svg>');
     if(document.exitFullscreen) {
         document.exitFullscreen();
     } else if(document.mozCancelFullScreen) {

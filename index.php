@@ -36,7 +36,7 @@
     <h1><a href="<?php $this->options->siteUrl(); ?>"><strong><?php $this->options->zmkiabout() ?></strong></h1></a>
     <span class="discription"><?php $this->options->zmkiabouts() ?></span>
     <nav>
-      <ul>
+      <ul class="nav_links">
 
 
         <li class='nav-item'>
@@ -56,8 +56,8 @@
 
 
 
-        <li><a type="button" id="fullscreen" class="btn btn-default visible-lg visible-md" alt="切换全屏"><svg
-              class="icon-zmki zmki_dh zmki_wap" aria-hidden="true">
+        <li><a type="button" id="fullscreen" class="btn btn-default visible-lg visible-md" alt="切换全屏">
+          <i class="iconfont icon-quanping"></i>
               <use xlink:href="#icon-zmki-ziyuan-copy"></use>
             </svg></a></li>
         <li><a href="#footer">关于</a></li>

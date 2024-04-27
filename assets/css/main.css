@@ -1225,15 +1225,6 @@ ul.icons li:last-child {
   padding-right: 0;
 }
 
-ul.icons li .iconfont:before {
-  font-size: 28px;
-  line-height: 1;
-  height: 28px;
-  margin: auto;
-  display: flex;
-}
-
-
 ul.icons li .iconfont {
   color: var(--heo-card-bg);
   width: 40px;
@@ -1244,6 +1235,16 @@ ul.icons li .iconfont {
   align-items: center;
   justify-content: center;
   transition: 0.3s;
+  font-size: 24px;
+}
+
+a#fullscreen i {
+  font-size: 24px;
+}
+
+.nav_links {
+  display: flex;
+  align-items: center;
 }
 
 ul.icons li:hover .iconfont {
@@ -1915,6 +1916,7 @@ li.category-level-0.category-parent {
   padding: 8px 16px;
   border-radius: 8px;
   white-space: nowrap;
+  cursor: pointer;
 }
 
 #header nav>ul>li a.icon:before {
@@ -1925,6 +1927,8 @@ li.category-level-0.category-parent {
 
 #header nav>ul>li a:hover {
   color: #ffffff !important;
+  background: #ffffff1e;
+  border-radius: 8px;
 }
 
 #header nav>ul>li a.active {
