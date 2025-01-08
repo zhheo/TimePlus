@@ -4,6 +4,10 @@ rsync -avz --progress --chmod=755 ./ root@116.196.68.153:/www/wwwroot/plog.zhheo
 
 # 更新日志
 
+## 2.12
+添加主题中文名
+移除被issues误导而添加的换行判断
+
 ## 2.11.1
 
 修复已知问题

@@ -112,7 +112,7 @@
             <div>
               <section>
                 <h2>关于<?php $this->options->IndexName() ?></h2>
-                <p><?php echo str_replace("/n", "<br>", $this->options->Biglogo()); ?></p>
+                <p><?php echo $this->options->Biglogo(); ?></p>
               </section>
               <section style="
     margin-bottom: 1.8rem;
