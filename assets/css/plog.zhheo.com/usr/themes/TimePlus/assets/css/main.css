@@ -492,6 +492,10 @@ i {
   font-style: italic;
 }
 
+p {
+  margin: 0 0 2em 0;
+}
+
 h1,
 h2,
 h3,
@@ -1552,7 +1556,6 @@ table.alt tfoot {
   padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
 .poptrox-popup .caption h2,
@@ -1567,6 +1570,7 @@ table.alt tfoot {
 .poptrox-popup .caption p {
   color: #ffffff;
   font-size: 15px;
+  margin: 4px 0 12px 0!important;
 }
 
 .poptrox-popup .loader {
@@ -2450,40 +2454,4 @@ body.is-preload #main .thumb {
 .tag-info {
   display: flex;
   align-items: center;
-  gap: 8px;
-}
-
-.tag-list {
-  display: none;
-}
-
-.poptrox-popup .tag-list {
-  display: flex;
-}
-
-.tag-info-bottom {
-  display: none;
-  margin-bottom: 12px;
-}
-
-.poptrox-popup .tag-info-bottom {
-  display: flex;
-}
-
-span.tag-list a {
-  color: var(--heo-white);
-  opacity: 0.8;
-  transition: all 0.3s ease-in-out;
-}
-
-span.tag-list a:hover {
-  opacity: 1;
-}
-
-.tag-info-bottom span {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  line-height: 1;
-  color: var(--heo-white);
 }

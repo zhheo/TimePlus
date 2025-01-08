@@ -56,4 +56,10 @@ function themeFields($layout)
 {
   $img = new Typecho_Widget_Helper_Form_Element_Text('img', NULL, NULL, _t('图片链接'), _t('请输入要展示的图片链接'));
   $layout->addItem($img);
+  
+  $device = new Typecho_Widget_Helper_Form_Element_Text('device', NULL, NULL, _t('设备信息'), _t('请输入拍摄设备信息'));
+  $layout->addItem($device);
+
+  $location = new Typecho_Widget_Helper_Form_Element_Text('location', NULL, NULL, _t('拍摄地点'), _t('请输入拍摄地点信息'));
+  $layout->addItem($location);
 }

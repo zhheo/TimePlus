@@ -1,7 +1,14 @@
+部署：
+
+rsync -avz --progress --chmod=755 ./ root@116.196.68.153:/www/wwwroot/plog.zhheo.com/usr/themes/TimePlus/
+
 # 更新日志
 
 ## 2.11
 移动端优化 #25
+支持时间、设备、地点信息显示
+没有内容的时候不载入p标签
+支持标签显示
 
 ## 2.10
 - 修复了全屏按钮的显示问题

@@ -80,8 +80,26 @@
               data-src="<?php echo $this->fields->img(); ?><?php $this->options->zmki_ys() ?>" />
           </a>
           <h2><?php $this->title() ?></h2>
-          <p><?php $this->content('Continue Reading...'); ?></p>
-          <li class="tag-categorys"><?php $this->category(','); ?></li>
+          <?php if($this->content): ?>
+          <div class="content-wrapper">
+            <p><?php $this->content('内容加载中...'); ?></p>
+          </div>
+          <?php endif; ?>
+          <li class="tag-info tag-info-bottom">
+            <?php if($this->fields->device): ?>
+            <span class="tag-device"><i class="iconfont icon-camera-lens-line"></i><?php echo $this->fields->device(); ?></span>
+            <?php endif; ?>
+            <?php if($this->fields->location): ?>
+            <span class="tag-location"><i class="iconfont icon-map-pin-2-line"></i><?php echo $this->fields->location(); ?></span>
+            <?php endif; ?>
+            <span class="tag-time"><i class="iconfont icon-time-line"></i><?php $this->date(); ?></span>
+          </li>
+          <li class="tag-info">
+            <span class="tag-categorys"><?php $this->category(''); ?></span>
+            <?php if($this->tags): ?>
+            <span class="tag-list"><?php $this->tags(); ?></span>
+            <?php endif; ?>
+          </li>
         </article>
       <?php endwhile; ?>
     </div>
@@ -94,7 +112,7 @@
             <div>
               <section>
                 <h2>关于<?php $this->options->IndexName() ?></h2>
-                <p><?php $this->options->Biglogo() ?></p>
+                <p><?php echo str_replace("/n", "<br>", $this->options->Biglogo()); ?></p>
               </section>
               <section style="
     margin-bottom: 1.8rem;
