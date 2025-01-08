@@ -8,8 +8,11 @@ function themeConfig($form)
   }
   $data = json_decode(file_get_contents('https://plog.zhheo.com/usr/themes/TimePlus/releases.json'), true);
   $message = $data['tag_name'];
-  //当前版本号
-  $selfmessage = '2.10';
+  
+  // 从 index.php 中获取版本号
+  $theme_info = get_theme_info();
+  $selfmessage = $theme_info['version'];
+  
   if ($selfmessage == $message) {
     echo  'TimePlus&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp当前版本：' . 'v' . $selfmessage . "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" . '最新版本:' . 'v' . $message;
   } else  if ($selfmessage > $message) {
@@ -62,4 +65,19 @@ function themeFields($layout)
 
   $location = new Typecho_Widget_Helper_Form_Element_Text('location', NULL, NULL, _t('拍摄地点'), _t('请输入拍摄地点信息'));
   $layout->addItem($location);
+}
+
+// 添加获取主题信息的函数
+function get_theme_info() {
+    $index_file = __DIR__ . '/index.php';
+    if (!file_exists($index_file)) {
+        return ['version' => '0.0'];
+    }
+    
+    $content = file_get_contents($index_file);
+    preg_match('/@version\s+(.*)/', $content, $matches);
+    
+    return [
+        'version' => isset($matches[1]) ? trim($matches[1]) : '0.0'
+    ];
 }
