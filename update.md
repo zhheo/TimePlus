@@ -7,6 +7,8 @@ rsync -avz --progress --chmod=755 ./ root@116.196.68.153:/www/wwwroot/plog.zhheo
 ## 2.12
 添加主题中文名
 移除被issues误导而添加的换行判断
+优化关于部分的样式
+新增公安备案的填写入口
 
 ## 2.11.1
 

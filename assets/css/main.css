@@ -1398,7 +1398,7 @@ table.alt tfoot {
 @media screen and (max-width: 1280px) {
 
   .panel {
-    padding: 3em 3em 1em 3em;
+    padding: 1em 3em 1em 3em;
   }
 
   .panel>.inner.split>div {
@@ -2442,6 +2442,23 @@ body.is-preload #main .thumb {
 #footer .copyright {
   color: #b5b5b5;
   font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.copyright-info {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+#footer .copyright .police {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 #footer .copyright a {

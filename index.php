@@ -125,13 +125,21 @@
               </section>
               <span style="color: #b5b5b5; font-size: 0.8em;">
                 <?php $this->options->cnzz() ?>
-                <p class="copyright">
-                    &copy; 设计 ZHHEO & ZMKI 主题：<a href="https://github.com/zhheo/TimePlus" target="_blank" rel="noopener nofollow">TimePlus</a>.
-                    <?php
-                    if ($this->options->icp): ?>
-                        <a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow"><?php $this->options->icp(); ?></a>
+                <div class="copyright-info">
+                    <span class="copyright">&copy; 设计 ZHHEO & ZMKI</span>
+                    <span class="theme">主题：<a href="https://github.com/zhheo/TimePlus" target="_blank" rel="noopener nofollow">洪墨时光</a></span>
+                    <?php if ($this->options->police): ?>
+                    <span class="police">
+                        <img src="<?php $this->options->themeUrl('assets/img/police.png'); ?>" alt="公安备案" style="vertical-align: middle; width: 14px;">
+                        <a href="https://beian.mps.gov.cn/#/query/webSearch" target="_blank" rel="noopener nofollow"><?php $this->options->police(); ?></a>
+                    </span>
                     <?php endif; ?>
-                </p>
+                    <?php if ($this->options->icp): ?>
+                    <span class="icp">
+                        <a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow"><?php $this->options->icp(); ?></a>
+                    </span>
+                    <?php endif; ?>
+                </div>
       </footer>
       <script type="text/javascript">
         function isInSight(el) {

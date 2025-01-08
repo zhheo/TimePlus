@@ -49,6 +49,8 @@ function themeConfig($form)
   $form->addInput($xxweibo);
   $xxgithub = new Typecho_Widget_Helper_Form_Element_Text('xxgithub', NULL, '', _t('GitHub'), _t('填写你的GitHub链接  http(s)://'));
   $form->addInput($xxgithub);
+  $police = new Typecho_Widget_Helper_Form_Element_Text('police', NULL, '', _t('公安备案号'), _t('如果你在国内有公安备案，可在此处填写'));
+  $form->addInput($police);
   $icp = new Typecho_Widget_Helper_Form_Element_Text('icp', NULL, '', _t('ICP备案号'), _t('如果你在国内有备案，可在此处填写'));
   $form->addInput($icp);
   $cnzz = new Typecho_Widget_Helper_Form_Element_Text('cnzz', NULL, '', _t('统计代码'), _t('cnzz或百度..统计代码。可在此处填写处'));
