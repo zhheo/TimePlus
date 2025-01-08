@@ -1625,7 +1625,8 @@ body.touch .poptrox-popup .nav-next {
   color: var(--heo-fontcolor);
   transition: 0.3s;
   z-index: 1;
-  margin:  12px 0 0 12px;
+  margin-left: 12px;
+  margin-top: 12px;
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
@@ -2464,6 +2465,14 @@ body.is-preload #main .thumb {
 .tag-info-bottom {
   display: none;
   margin-bottom: 12px;
+}
+
+.content-wrapper {
+  display: none;
+}
+
+.poptrox-popup .content-wrapper {
+  display: flex;
 }
 
 .poptrox-popup .tag-info-bottom {
