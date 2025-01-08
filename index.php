@@ -1,9 +1,9 @@
 <?php
 /**
- * 一款相册主题，Plus系列目前由Heo维护
- * @package TimePlus
+ * 一款简约的相册主题
+ * @package 洪墨时光
  * @author zhheo
- * @version 2.11.1
+ * @version 2.12
  * @link https://zhheo.com/
  */
 ?>
