@@ -30,11 +30,11 @@ function themeConfig($form)
   $AppleIcon = new Typecho_Widget_Helper_Form_Element_Text('AppleIcon', NULL, '', _t('兼容Apple设备的图标'), _t('建议使用有背景无圆角矩形图标，在被iOS添加到书签或桌面后显示此图标（建议200px宽度png）'));
   $form->addInput($AppleIcon);
   //首页名称后缀（必填）
-  $Indexdict = new Typecho_Widget_Helper_Form_Element_Text('Indexdict', NULL, '采用TimePlus。', _t('首页的名称后缀(必填)'), _t('输入你的首页显示的名称后缀'));
+  $Indexdict = new Typecho_Widget_Helper_Form_Element_Text('Indexdict', NULL, '采用洪墨时光主题。', _t('首页的名称后缀(必填)'), _t('输入你的首页显示的名称后缀'));
   $form->addInput($Indexdict);
-  $zmkiabout = new Typecho_Widget_Helper_Form_Element_Text('zmkiabout', NULL, '时光相册', _t('自定义底栏前缀'), _t('输入你的首页底部栏前缀'));
+  $zmkiabout = new Typecho_Widget_Helper_Form_Element_Text('zmkiabout', NULL, '洪墨时光', _t('自定义底栏前缀'), _t('输入你的首页底部栏前缀'));
   $form->addInput($zmkiabout);
-  $zmkiabouts = new Typecho_Widget_Helper_Form_Element_Text('zmkiabouts', NULL, '采用TimePlus', _t('自定义底栏后缀'), _t('输入你的首页底部栏后缀'));
+  $zmkiabouts = new Typecho_Widget_Helper_Form_Element_Text('zmkiabouts', NULL, '采用洪墨时光主题', _t('自定义底栏后缀'), _t('输入你的首页底部栏后缀'));
   $form->addInput($zmkiabouts);
   //大logo
   $Biglogo = new Typecho_Widget_Helper_Form_Element_Text('Biglogo', NULL, '欢迎使用TimePlus，这里填写你的介绍。', _t('关于-详细介绍'), _t('底栏展开后的详细介绍，可以使用html标签'));
