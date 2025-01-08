@@ -107,16 +107,12 @@
     <body>
       <!-- Footer -->
       <footer id="footer" class="panel">
-        <div class="inner split">
-          <div class="inner split">
-            <div>
+            <div id="about">
               <section>
                 <h2>关于<?php $this->options->IndexName() ?></h2>
                 <p><?php echo $this->options->Biglogo(); ?></p>
               </section>
-              <section style="
-    margin-bottom: 1.8rem;
-">
+              <section>
                 <h2>联系我</h2>
                 <ul class="icons">
                   <li><a class="contact_link" href="<?php $this->options->xxhome() ?>" target="_blank"
@@ -132,15 +128,10 @@
                 <p class="copyright">
                     &copy; 设计 ZHHEO & ZMKI 主题：<a href="https://github.com/zhheo/TimePlus" target="_blank" rel="noopener nofollow">TimePlus</a>.
                     <?php
-                    $icp = $this->options->icp();
-                    if ($icp) {
-                        echo 'ICP备案号:<a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow">' . $icp . '</a>';
-                    }
-                    ?>
+                    if ($this->options->icp): ?>
+                        <a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener nofollow"><?php $this->options->icp(); ?></a>
+                    <?php endif; ?>
                 </p>
-
-            </div>
-          </div>
       </footer>
       <script type="text/javascript">
         function isInSight(el) {

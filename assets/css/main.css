@@ -501,7 +501,7 @@ h6 {
   color: #ffffff;
   font-weight: bold;
   line-height: 0;
-  margin: 0 0 16px 0;
+  margin: 0;
 }
 
 h1 a,
@@ -2495,4 +2495,16 @@ span.tag-list a:hover {
   gap: 4px;
   line-height: 1;
   color: var(--heo-white);
+}
+
+#about {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+#about section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
