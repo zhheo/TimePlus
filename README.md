@@ -28,7 +28,7 @@ Demo: [立即查看](https://plog.zhheo.com/)
 
 如果你喜欢这个主题，那么请支持我，这会让我更加努力！
 
-https://rewards.zhheo.com/
+[![](https://p.zhheo.com/tZucdP20690181736320026634.png!cover)](https://rewards.zhheo.com/)
 
 ## 常见问题
 
