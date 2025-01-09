@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,400italic");
 
 :root {
   --heo-white: #fff;
@@ -2524,4 +2523,70 @@ span.tag-list a:hover {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+/* 分页按钮样式 */
+.pagination-container {
+    width: 100%;
+    text-align: center;
+    clear: both;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 20px 0 40px 0;
+}
+
+.page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.page-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    color: var(--heo-white);
+}
+
+.page-btn.current {
+    background-color: var(--heo-theme);
+    border-color: var(--heo-theme);
+    color: #fff;
+    cursor: default;
+    pointer-events: none;
+}
+
+.prev-btn,
+.next-btn {
+    padding: 0 20px;
+}
+
+@media screen and (max-width: 736px) {
+    .pagination-container {
+        gap: 6px;
+    }
+    
+    .page-btn {
+        min-width: 36px;
+        height: 36px;
+        padding: 0 12px;
+        font-size: 13px;
+    }
+    
+    .prev-btn,
+    .next-btn {
+        padding: 0 15px;
+    }
 }

@@ -103,8 +103,39 @@
         </article>
       <?php endwhile; ?>
       
-      <!-- 添加一个加载更多的容器,并包含总页数信息 -->
-      <div id="load-more" data-page="1" data-total-pages="<?php echo ceil($this->getTotal() / $this->parameter->pageSize); ?>"></div>
+      <!-- 分页导航 -->
+      <div class="pagination-container">
+        <?php 
+          $total = ceil($this->getTotal() / $this->parameter->pageSize);
+          $current = $this->_currentPage;
+          $max_pages = 6; // 最多显示的页码数
+          
+          // 计算显示的页码范围
+          $start = max(1, min($current - floor($max_pages/2), $total - $max_pages + 1));
+          $end = min($start + $max_pages - 1, $total);
+          
+          // 上一页按钮
+          if ($current > 1): 
+            $this->pageLink('<span class="page-btn prev-btn">上一页</span>', 'prev'); 
+          endif;
+
+          // 页码按钮
+          for ($i = $start; $i <= $end; $i++):
+            if ($i == $current): ?>
+              <span class="page-btn current"><?php echo $i; ?></span>
+            <?php else: ?>
+              <a href="<?php $this->options->siteUrl(); ?>index.php/page/<?php echo $i; ?>/" class="page-btn"><?php echo $i; ?></a>
+            <?php endif;
+          endfor;
+
+          // 下一页按钮
+          if ($current < $total): 
+            $this->pageLink('<span class="page-btn next-btn">下一页</span>', 'next');
+          endif; ?>
+      </div>
+
+      <!-- 原有的 load-more div -->
+      <div id="load-more" data-page="1" data-total-pages="<?php echo $total; ?>"></div>
     </div>
 
     <body>
