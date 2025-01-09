@@ -4,6 +4,17 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+jQuery.event.special.touchstart = {
+	setup: function( _, ns, handle ) {
+		this.addEventListener("touchstart", handle, { passive: true });
+	}
+};
+jQuery.event.special.touchmove = {
+	setup: function( _, ns, handle ) {
+		this.addEventListener("touchmove", handle, { passive: true });
+	}
+};
+
 (function($) {
 
 	var	$window = $(window),
@@ -321,3 +332,91 @@ $('#fullscreen').on('click', function() {
     a++;
     a % 2 == 1 ? enterfullscreen() : exitfullscreen();
 })
+
+$(function() {
+	var loading = false;
+	var $loadMore = $('#load-more');
+	var currentPage = 1;
+	var $main = $('#main');
+	var totalPages = parseInt($loadMore.data('total-pages')); // 获取总页数
+	
+	var scrollHandler = function() {
+		// 如果正在加载或者没有更多内容,则不执行
+		if(loading) return;
+		
+		// 如果已经到达最后一页,则移除加载更多标记并返回
+		if(currentPage >= totalPages) {
+			$loadMore.remove();
+			return;
+		}
+		
+		// 检查是否滚动到底部
+		if($(window).scrollTop() + $(window).height() > $loadMore.offset().top - 100) {
+			loading = true;
+			currentPage++;
+			
+			// 发起 AJAX 请求加载下一页
+			$.ajax({
+				url: window.location.pathname,
+				type: 'GET',
+				data: {
+					page: currentPage
+				},
+				success: function(response) {
+					// 解析返回的 HTML
+					var $res = $(response);
+					var $newPosts = $res.find('.thumb.img-area');
+					
+					// 如果没有新文章了,则移除加载更多标记
+					if($newPosts.length === 0) {
+						$loadMore.remove();
+						return;
+					}
+					
+					// 将新文章插入到容器中
+					$newPosts.insertBefore($loadMore);
+					
+					// 重新初始化新加载文章的图片懒加载
+					checkImgs();
+					
+					// 重新初始化 Poptrox
+					$main.poptrox({
+						baseZIndex: 20000,
+						caption: function($a) {
+							var s = '';
+							$a.nextAll().each(function() {
+								s += this.outerHTML;
+							});
+							return s;
+						},
+						fadeSpeed: 300,
+						onPopupClose: function() { $body.removeClass('modal-active'); },
+						onPopupOpen: function() { $body.addClass('modal-active'); },
+						overlayOpacity: 0,
+						popupCloserText: '',
+						popupHeight: 150,
+						popupLoaderText: '',
+						popupSpeed: 300,
+						popupWidth: 150,
+						selector: '.thumb > a.image',
+						usePopupCaption: true,
+						usePopupCloser: true,
+						usePopupDefaultStyling: false,
+						usePopupForceClose: true,
+						usePopupLoader: true,
+						usePopupNav: true,
+						windowMargin: 50
+					});
+					
+					loading = false;
+				},
+				error: function() {
+					loading = false;
+				}
+			});
+		}
+	};
+	
+	// 使用 passive 选项添加滚动事件监听器
+	window.addEventListener('scroll', scrollHandler, { passive: true });
+});

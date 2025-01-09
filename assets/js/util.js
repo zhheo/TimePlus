@@ -586,4 +586,5 @@
 
 })(jQuery);
 
-document.write("<h1></h1>");
+// 使用DOM API添加元素
+document.body.appendChild(document.createElement('h1'));

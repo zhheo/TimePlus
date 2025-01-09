@@ -3,7 +3,7 @@
  * 一款简约的相册主题
  * @package 洪墨时光
  * @author zhheo
- * @version 2.12
+ * @version 2.13
  * @link https://zhheo.com/
  */
 ?>
@@ -102,6 +102,9 @@
           </li>
         </article>
       <?php endwhile; ?>
+      
+      <!-- 添加一个加载更多的容器,并包含总页数信息 -->
+      <div id="load-more" data-page="1" data-total-pages="<?php echo ceil($this->getTotal() / $this->parameter->pageSize); ?>"></div>
     </div>
 
     <body>
