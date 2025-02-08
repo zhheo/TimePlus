@@ -1482,6 +1482,10 @@ table.alt tfoot {
   top: 0;
   width: 100%;
   z-index: 1;
+  opacity: 0;
+}
+
+.poptrox-popup:hover:before {
   opacity: 1;
 }
 
@@ -1617,7 +1621,7 @@ body.touch .poptrox-popup .nav-next {
 }
 
 .tag-categorys a {
-  padding: 4px 6px;
+  padding: 8px 8px;
   border-radius: 8px;
   background: var(--heo-black-op);
   font-size: 12px;
@@ -1628,6 +1632,7 @@ body.touch .poptrox-popup .nav-next {
   margin-top: 12px;
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  line-height: 1;
 }
 
 .tag-categorys a:hover {
@@ -1877,6 +1882,11 @@ li.category-level-0.category-parent {
   text-align: center;
 }
 
+li.category-level-0.category-parent a {
+  width: 100%;
+  text-align: center;
+}
+
 .nav-item .category-parent {
   border-radius: 6px;
   transition: 0.3s;
@@ -2048,8 +2058,8 @@ li.category-level-0.category-parent {
 
 #main .thumb>h2 {
   pointer-events: none;
-  bottom: 1.875em;
-  font-size: 0.8em;
+  bottom: 16px;
+  font-size: 14px;
   left: 16px;
   margin: 0;
   position: absolute;
@@ -2467,7 +2477,7 @@ body.is-preload #main .thumb {
 .tag-info {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
 }
 
 .tag-list {
@@ -2476,11 +2486,12 @@ body.is-preload #main .thumb {
 
 .poptrox-popup .tag-list {
   display: flex;
+  gap: 8px;
 }
 
 .tag-info-bottom {
   display: none;
-  margin-bottom: 12px;
+  margin: 8px 0 12px 0;
 }
 
 .content-wrapper {

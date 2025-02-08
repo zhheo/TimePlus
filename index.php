@@ -97,16 +97,19 @@
           <li class="tag-info">
             <span class="tag-categorys"><?php $this->category(''); ?></span>
             <?php if($this->tags): ?>
-            <span class="tag-list"><?php $this->tags(); ?></span>
+            <span class="tag-list"><?php $this->tags('', true); ?></span>
             <?php endif; ?>
           </li>
         </article>
       <?php endwhile; ?>
       
       <!-- 分页导航 -->
+      <?php
+        $total = ceil($this->getTotal() / $this->parameter->pageSize);
+        if($total > 1):
+      ?>
       <div class="pagination-container">
         <?php 
-          $total = ceil($this->getTotal() / $this->parameter->pageSize);
           $current = $this->_currentPage;
           $max_pages = 6; // 最多显示的页码数
           
@@ -133,6 +136,7 @@
             $this->pageLink('<span class="page-btn next-btn">下一页</span>', 'next');
           endif; ?>
       </div>
+      <?php endif; ?>
 
       <!-- 原有的 load-more div -->
       <div id="load-more" data-page="1" data-total-pages="<?php echo $total; ?>"></div>

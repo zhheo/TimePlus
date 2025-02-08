@@ -51,17 +51,22 @@ jQuery.event.special.touchmove = {
 			// Prevent transitions/animations on resize.
 				var resizeTimeout;
 
-				$window.on('resize', function() {
+				function debounce(func, wait) {
+					let timeout;
+					return function() {
+						const context = this;
+						const args = arguments;
+						clearTimeout(timeout);
+						timeout = setTimeout(() => func.apply(context, args), wait);
+					};
+				}
 
-					window.clearTimeout(resizeTimeout);
-
+				$window.on('resize', debounce(function() {
 					$body.addClass('is-resizing');
-
-					resizeTimeout = window.setTimeout(function() {
+					setTimeout(function() {
 						$body.removeClass('is-resizing');
 					}, 100);
-
-				});
+				}, 250));
 
 		}
 
@@ -223,27 +228,27 @@ jQuery.event.special.touchmove = {
 		// Thumbs.
 			$main.children('.thumb').each(function() {
 
-				var	$this = $(this),
-					$image = $this.find('.image'), $image_img = $image.children('img'),
-					x;
+				var $this = $(this),
+					$image = $this.find('.image'), 
+					$image_img = $image.children('img');
 
-				// No image? Bail.
-					if ($image.length == 0)
-						// return;
+				// 如果没有图片则返回
+				if ($image.length === 0) return;
 
-				// Image.
-				// This sets the background of the "image" <span> to the image pointed to by its child
-				// <img> (which is then hidden). Gives us way more flexibility.
+				// 使用 loading="lazy" 属性实现懒加载
+				$image_img
+					.attr('loading', 'lazy')
+					.css('display', 'block') // 确保图片显示
+					.on('load', function() {
+						// 图片加载完成后的处理
+						$(this).css('opacity', '1');
+					});
 
-					// Set background.
-						// $image.css('background-image', 'url(' + $image_img.attr('src') + ')');
-
-					// Set background position.
-						// if (x = $image_img.data('position'))
-						// 	$image.css('background-position', x);
-
-					// Hide original img.
-						$image_img.hide();
+				// 如果有背景位置数据，设置它
+				var position = $image_img.data('position');
+				if (position) {
+					$image.css('background-position', position);
+				}
 
 			});
 
@@ -291,47 +296,35 @@ jQuery.event.special.touchmove = {
 
 })(jQuery);
 
+// 优化全屏切换功能
+const fullscreenAPI = {
+	enter: document.documentElement.requestFullscreen ||
+		   document.documentElement.mozRequestFullScreen ||
+		   document.documentElement.webkitRequestFullScreen ||
+		   document.documentElement.msRequestFullscreen,
+	exit: document.exitFullscreen ||
+		  document.mozCancelFullScreen ||
+		  document.webkitCancelFullScreen ||
+		  document.msExitFullscreen
+};
 
-//控制全屏
-function enterfullscreen() { //进入全屏
-    $("#fullscreen").html("退出全屏");
-    var docElm = document.documentElement;
-    //W3C
-    if(docElm.requestFullscreen) {
-        docElm.requestFullscreen();
-    }
-    //FireFox
-    else if(docElm.mozRequestFullScreen) {
-        docElm.mozRequestFullScreen();
-    }
-    //Chrome等
-    else if(docElm.webkitRequestFullScreen) {
-        docElm.webkitRequestFullScreen();
-    }
-    //IE11
-    else if(elem.msRequestFullscreen) {
-        elem.msRequestFullscreen();
-    }
+function toggleFullscreen() {
+	const isFullscreen = document.fullscreenElement ||
+						document.mozFullScreenElement ||
+						document.webkitFullscreenElement ||
+						document.msFullscreenElement;
+	
+	if (!isFullscreen) {
+		$("#fullscreen").html("退出全屏");
+		fullscreenAPI.enter.call(document.documentElement);
+	} else {
+		$("#fullscreen").html('<i class="iconfont icon-quanping"></i><use xlink:href="#icon-zmki-ziyuan-copy"></use></svg>');
+		fullscreenAPI.exit.call(document);
+	}
 }
 
-function exitfullscreen() { //退出全屏
-    $("#fullscreen").html('<i class="iconfont icon-quanping"></i><use xlink:href="#icon-zmki-ziyuan-copy"></use></svg>');
-    if(document.exitFullscreen) {
-        document.exitFullscreen();
-    } else if(document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-    } else if(document.webkitCancelFullScreen) {
-        document.webkitCancelFullScreen();
-    } else if(document.msExitFullscreen) {
-        document.msExitFullscreen();
-    }
-}
-
-var a = 0;
-$('#fullscreen').on('click', function() {
-    a++;
-    a % 2 == 1 ? enterfullscreen() : exitfullscreen();
-})
+// 简化全屏切换事件监听
+$('#fullscreen').on('click', toggleFullscreen);
 
 // 为分页按钮添加动画效果
 $(document).ready(function() {
