@@ -246,7 +246,8 @@
       </script>
       <script>
       document.addEventListener('DOMContentLoaded', function() {
-        // 监听弹出层中的面包屑悬浮
+        let originalWidth, originalHeight;
+        
         document.addEventListener('mouseover', function(e) {
           if (!e.target.classList.contains('nav-dot')) return;
           
@@ -260,11 +261,43 @@
           
           if (!popup) return;
           
-          // 更新当前图片
-          const img = popup.querySelector('.pic img');
-          if (img) {
-            img.src = images[index] + '<?php $this->options->zmki_sy() ?>'; // 添加水印参数
+          // 第一次记录原始尺寸
+          if (!originalWidth || !originalHeight) {
+            originalWidth = popup.offsetWidth + 'px';
+            originalHeight = popup.offsetHeight + 'px';
           }
+          
+          // 创建新图片并预加载
+          const newImg = new Image();
+          newImg.onload = function() {
+            const img = popup.querySelector('.pic img');
+            if (img) {
+              // 先设置弹窗尺寸为原始尺寸
+              popup.style.width = originalWidth;
+              popup.style.height = originalHeight;
+              popup.style.maxWidth = originalWidth;
+              popup.style.maxHeight = originalHeight;
+              
+              // 设置图片容器样式
+              const picContainer = popup.querySelector('.pic');
+              if (picContainer) {
+                picContainer.style.display = 'flex';
+                picContainer.style.alignItems = 'center';
+                picContainer.style.justifyContent = 'center';
+                picContainer.style.height = '100%';
+              }
+              
+              // 设置图片
+              img.src = images[index] + '<?php $this->options->zmki_sy() ?>';
+              img.style.maxWidth = '100%';
+              img.style.maxHeight = '100%';
+              img.style.width = 'auto';
+              img.style.height = 'auto';
+              img.style.objectFit = 'contain';
+              img.style.margin = 'auto';
+            }
+          };
+          newImg.src = images[index] + '<?php $this->options->zmki_sy() ?>';
           
           // 更新导航点状态
           dots.forEach(dot => dot.classList.remove('active'));
