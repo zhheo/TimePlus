@@ -59,14 +59,17 @@ function themeConfig($form)
 //输出导航
 function themeFields($layout)
 {
-  $img = new Typecho_Widget_Helper_Form_Element_Textarea('img', NULL, NULL, _t('图片链接'), _t('请输入要展示的图片链接，每行一个链接'));
+  $img = new Typecho_Widget_Helper_Form_Element_Textarea('img', NULL, NULL, _t('图片链接'), _t('请输入要展示的图片链接，每行一个链接。为了保证良好的体验，建议同一个文章下图片尺寸一致。'));
   $img->input->setAttribute('class', 'w-100 custom-textarea');
+  $img->input->setAttribute('style', 'height: 200px');
   $layout->addItem($img);
   
   $device = new Typecho_Widget_Helper_Form_Element_Text('device', NULL, NULL, _t('设备信息'), _t('请输入拍摄设备信息'));
+  $device->input->setAttribute('class', 'w-100');
   $layout->addItem($device);
 
   $location = new Typecho_Widget_Helper_Form_Element_Text('location', NULL, NULL, _t('拍摄地点'), _t('请输入拍摄地点信息'));
+  $location->input->setAttribute('class', 'w-100');
   $layout->addItem($location);
 }
 

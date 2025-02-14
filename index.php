@@ -3,7 +3,7 @@
  * 一款简约的相册主题
  * @package 洪墨时光
  * @author zhheo
- * @version 2.13
+ * @version 2.14
  * @link https://zhheo.com/
  */
 ?>
@@ -105,12 +105,14 @@
             <span class="tag-list"><?php $this->tags('', true); ?></span>
             <?php endif; ?>
           </li>
-          <!-- 添加所有图片数据到 data 属性 -->
+          <!-- 只有当图片数量大于1时才显示面包屑导航 -->
+          <?php if(count($images) > 1): ?>
           <div class="breadcrumb-nav" data-images='<?php echo json_encode($images); ?>'>
             <?php foreach($images as $index => $image): ?>
             <span class="nav-dot <?php echo $index === 0 ? 'active' : ''; ?>" data-index="<?php echo $index; ?>"></span>
             <?php endforeach; ?>
           </div>
+          <?php endif; ?>
         </article>
       <?php endwhile; ?>
       
@@ -246,11 +248,12 @@
       </script>
       <script>
       document.addEventListener('DOMContentLoaded', function() {
-        let originalWidth, originalHeight;
-        const imageCache = {}; // 用于缓存图片
+        // 创建一个变量来跟踪是否正在切换图片
+        let isTransitioning = false;
         
         document.addEventListener('mouseover', function(e) {
           if (!e.target.classList.contains('nav-dot')) return;
+          if (isTransitioning) return; // 如果正在切换则忽略新的切换请求
           
           const nav = e.target.closest('.breadcrumb-nav');
           if (!nav) return;
@@ -262,68 +265,36 @@
           
           if (!popup) return;
           
-          // 第一次记录原始尺寸
-          if (!originalWidth || !originalHeight) {
-            originalWidth = popup.offsetWidth + 'px';
-            originalHeight = popup.offsetHeight + 'px';
-          }
-          
           const img = popup.querySelector('.pic img');
           if (img) {
-            // 仅在通过面包屑切换时显示加载动画并保持弹窗尺寸
-            img.src = '<?php $this->options->themeUrl('assets/img/loading.gif'); ?>';
-            img.style.objectFit = 'contain';
-            img.style.margin = 'auto';
-            img.style.width = originalWidth;
-            img.style.height = originalHeight;
-          }
-          
-          // 检查图片是否已缓存
-          if (!imageCache[images[index]]) {
-            const newImg = new Image();
-            newImg.onload = function() {
-              imageCache[images[index]] = newImg; // 缓存图片
-              updateImage(popup, newImg, images[index]);
-            };
-            newImg.src = images[index] + '<?php $this->options->zmki_sy() ?>';
-          } else {
-            // 如果已缓存，直接使用缓存的图片
-            updateImage(popup, imageCache[images[index]], images[index]);
+            isTransitioning = true;
+            
+            // 确保当前图片有过渡效果
+            img.style.transition = 'opacity 0.3s ease-in-out';
+            img.style.opacity = '0';
+            
+            // 等待淡出完成
+            setTimeout(() => {
+              // 切换图片源
+              img.src = images[index] + '<?php $this->options->zmki_sy() ?>';
+              
+              // 图片加载完成后显示
+              img.onload = function() {
+                img.style.opacity = '1';
+                isTransitioning = false;
+              };
+              
+              // 如果图片加载失败，也要重置状态
+              img.onerror = function() {
+                isTransitioning = false;
+              };
+            }, 300);
           }
           
           // 更新导航点状态
           dots.forEach(dot => dot.classList.remove('active'));
           e.target.classList.add('active');
         });
-        
-        function updateImage(popup, imgElement, imageUrl) {
-          const img = popup.querySelector('.pic img');
-          if (img) {
-            // 先设置弹窗尺寸为原始尺寸
-            popup.style.width = originalWidth;
-            popup.style.height = originalHeight;
-            popup.style.maxWidth = originalWidth;
-            popup.style.maxHeight = originalHeight;
-            
-            // 设置图片容器样式
-            const picContainer = popup.querySelector('.pic');
-            if (picContainer) {
-              picContainer.style.display = 'flex';
-              picContainer.style.alignItems = 'center';
-              picContainer.style.justifyContent = 'center';
-              picContainer.style.height = '100%';
-            }
-            
-            // 设置图片
-            img.src = imageUrl + '<?php $this->options->zmki_sy() ?>';
-            img.style.maxWidth = '100%';
-            img.style.maxHeight = '100%';
-            img.style.width = 'auto';
-            img.style.height = 'auto';
-            img.style.objectFit = 'contain';
-            img.style.margin = 'auto';
-          }
-        }
       });
       </script>
   </div>
