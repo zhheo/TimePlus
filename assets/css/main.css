@@ -2624,7 +2624,28 @@ span.tag-list a:hover {
   transition: all 0.3s ease;
 }
 
+.nav-dot:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.2);
+}
+
 .nav-dot.active {
   background-color: #fff;
   transform: scale(1.2);
+}
+
+.custom-textarea {
+    width: 100% !important;
+    min-height: 150px !important;
+    font-size: 14px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+    line-height: 1.5 !important;
+    border: 1px solid #ddd !important;
+    border-radius: 4px !important;
+}
+
+.custom-textarea:focus {
+    border-color: #666 !important;
+    outline: none !important;
 }

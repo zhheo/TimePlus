@@ -73,11 +73,16 @@
 
       <?php while ($this->next()): ?>
         <article class="thumb img-area">
-          <a class="image my-photo" alt="loading"
-            href="<?php echo $this->fields->img(); ?><?php $this->options->zmki_sy() ?>">
-            <img class="zmki_px  my-photo"
+          <?php 
+          // 将多行图片链接分割成数组
+          $images = array_filter(explode("\n", $this->fields->img));
+          // 获取第一张图片作为缩略图
+          $firstImage = trim($images[0]); 
+          ?>
+          <a class="image my-photo" alt="loading" href="<?php echo $firstImage; ?><?php $this->options->zmki_sy() ?>">
+            <img class="zmki_px my-photo"
               onerror="this.src='<?php $this->options->themeUrl('assets/img/loading.gif'); ?>';this.onerror=null"
-              data-src="<?php echo $this->fields->img(); ?><?php $this->options->zmki_ys() ?>" />
+              data-src="<?php echo $firstImage; ?><?php $this->options->zmki_ys() ?>" />
           </a>
           <h2><?php $this->title() ?></h2>
           <?php if($this->content): ?>
@@ -100,12 +105,11 @@
             <span class="tag-list"><?php $this->tags('', true); ?></span>
             <?php endif; ?>
           </li>
-          <!-- 添加面包屑导航，但默认隐藏 -->
-          <div class="breadcrumb-nav">
-            <span class="nav-dot active"></span>
-            <span class="nav-dot"></span>
-            <span class="nav-dot"></span>
-            <span class="nav-dot"></span>
+          <!-- 添加所有图片数据到 data 属性 -->
+          <div class="breadcrumb-nav" data-images='<?php echo json_encode($images); ?>'>
+            <?php foreach($images as $index => $image): ?>
+            <span class="nav-dot <?php echo $index === 0 ? 'active' : ''; ?>" data-index="<?php echo $index; ?>"></span>
+            <?php endforeach; ?>
           </div>
         </article>
       <?php endwhile; ?>
@@ -239,6 +243,34 @@
       <script>
         window.onload = checkImgs;
         window.onscroll = throttle(checkImgs);
+      </script>
+      <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // 监听弹出层中的面包屑悬浮
+        document.addEventListener('mouseover', function(e) {
+          if (!e.target.classList.contains('nav-dot')) return;
+          
+          const nav = e.target.closest('.breadcrumb-nav');
+          if (!nav) return;
+          
+          const dots = nav.querySelectorAll('.nav-dot');
+          const images = JSON.parse(nav.dataset.images);
+          const index = parseInt(e.target.dataset.index);
+          const popup = nav.closest('.poptrox-popup');
+          
+          if (!popup) return;
+          
+          // 更新当前图片
+          const img = popup.querySelector('.pic img');
+          if (img) {
+            img.src = images[index] + '<?php $this->options->zmki_sy() ?>'; // 添加水印参数
+          }
+          
+          // 更新导航点状态
+          dots.forEach(dot => dot.classList.remove('active'));
+          e.target.classList.add('active');
+        });
+      });
       </script>
   </div>
   <!-- Scripts -->
