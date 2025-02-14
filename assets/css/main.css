@@ -1545,7 +1545,7 @@ table.alt tfoot {
   background-image: -webkit-linear-gradient(to top, rgba(16, 16, 16, 0.45) 25%, rgba(16, 16, 16, 0) 100%);
   background-image: -ms-linear-gradient(to top, rgba(16, 16, 16, 0.45) 25%, rgba(16, 16, 16, 0) 100%);
   background-image: linear-gradient(to top, rgba(16, 16, 16, 0.45) 25%, rgba(16, 16, 16, 0) 100%);
-  bottom: 0rem;
+  bottom: 0;
   cursor: default;
   left: 0;
   position: absolute;
@@ -2600,4 +2600,31 @@ span.tag-list a:hover {
     .next-btn {
         padding: 0 15px;
     }
+}
+
+/* 面包屑导航样式 */
+.breadcrumb-nav {
+  display: none; /* 默认隐藏 */
+}
+
+/* 只在弹出层中显示面包屑，并调整位置到底部 */
+.poptrox-popup .breadcrumb-nav {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  order: 999; /* 确保在caption内容的最后面 */
+}
+
+.nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-dot.active {
+  background-color: #fff;
+  transform: scale(1.2);
 }

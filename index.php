@@ -100,6 +100,13 @@
             <span class="tag-list"><?php $this->tags('', true); ?></span>
             <?php endif; ?>
           </li>
+          <!-- 添加面包屑导航，但默认隐藏 -->
+          <div class="breadcrumb-nav">
+            <span class="nav-dot active"></span>
+            <span class="nav-dot"></span>
+            <span class="nav-dot"></span>
+            <span class="nav-dot"></span>
+          </div>
         </article>
       <?php endwhile; ?>
       
