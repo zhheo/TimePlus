@@ -247,6 +247,7 @@
       <script>
       document.addEventListener('DOMContentLoaded', function() {
         let originalWidth, originalHeight;
+        const imageCache = {}; // 用于缓存图片
         
         document.addEventListener('mouseover', function(e) {
           if (!e.target.classList.contains('nav-dot')) return;
@@ -267,42 +268,62 @@
             originalHeight = popup.offsetHeight + 'px';
           }
           
-          // 创建新图片并预加载
-          const newImg = new Image();
-          newImg.onload = function() {
-            const img = popup.querySelector('.pic img');
-            if (img) {
-              // 先设置弹窗尺寸为原始尺寸
-              popup.style.width = originalWidth;
-              popup.style.height = originalHeight;
-              popup.style.maxWidth = originalWidth;
-              popup.style.maxHeight = originalHeight;
-              
-              // 设置图片容器样式
-              const picContainer = popup.querySelector('.pic');
-              if (picContainer) {
-                picContainer.style.display = 'flex';
-                picContainer.style.alignItems = 'center';
-                picContainer.style.justifyContent = 'center';
-                picContainer.style.height = '100%';
-              }
-              
-              // 设置图片
-              img.src = images[index] + '<?php $this->options->zmki_sy() ?>';
-              img.style.maxWidth = '100%';
-              img.style.maxHeight = '100%';
-              img.style.width = 'auto';
-              img.style.height = 'auto';
-              img.style.objectFit = 'contain';
-              img.style.margin = 'auto';
-            }
-          };
-          newImg.src = images[index] + '<?php $this->options->zmki_sy() ?>';
+          const img = popup.querySelector('.pic img');
+          if (img) {
+            // 仅在通过面包屑切换时显示加载动画并保持弹窗尺寸
+            img.src = '<?php $this->options->themeUrl('assets/img/loading.gif'); ?>';
+            img.style.objectFit = 'contain';
+            img.style.margin = 'auto';
+            img.style.width = originalWidth;
+            img.style.height = originalHeight;
+          }
+          
+          // 检查图片是否已缓存
+          if (!imageCache[images[index]]) {
+            const newImg = new Image();
+            newImg.onload = function() {
+              imageCache[images[index]] = newImg; // 缓存图片
+              updateImage(popup, newImg, images[index]);
+            };
+            newImg.src = images[index] + '<?php $this->options->zmki_sy() ?>';
+          } else {
+            // 如果已缓存，直接使用缓存的图片
+            updateImage(popup, imageCache[images[index]], images[index]);
+          }
           
           // 更新导航点状态
           dots.forEach(dot => dot.classList.remove('active'));
           e.target.classList.add('active');
         });
+        
+        function updateImage(popup, imgElement, imageUrl) {
+          const img = popup.querySelector('.pic img');
+          if (img) {
+            // 先设置弹窗尺寸为原始尺寸
+            popup.style.width = originalWidth;
+            popup.style.height = originalHeight;
+            popup.style.maxWidth = originalWidth;
+            popup.style.maxHeight = originalHeight;
+            
+            // 设置图片容器样式
+            const picContainer = popup.querySelector('.pic');
+            if (picContainer) {
+              picContainer.style.display = 'flex';
+              picContainer.style.alignItems = 'center';
+              picContainer.style.justifyContent = 'center';
+              picContainer.style.height = '100%';
+            }
+            
+            // 设置图片
+            img.src = imageUrl + '<?php $this->options->zmki_sy() ?>';
+            img.style.maxWidth = '100%';
+            img.style.maxHeight = '100%';
+            img.style.width = 'auto';
+            img.style.height = 'auto';
+            img.style.objectFit = 'contain';
+            img.style.margin = 'auto';
+          }
+        }
       });
       </script>
   </div>
