@@ -252,7 +252,8 @@
         let isTransitioning = false;
         
         document.addEventListener('mouseover', function(e) {
-          if (!e.target.classList.contains('nav-dot')) return;
+          // 如果不是导航点或者是当前激活的导航点,则直接返回
+          if (!e.target.classList.contains('nav-dot') || e.target.classList.contains('active')) return;
           if (isTransitioning) return; // 如果正在切换则忽略新的切换请求
           
           const nav = e.target.closest('.breadcrumb-nav');
