@@ -248,8 +248,40 @@
       </script>
       <script>
       document.addEventListener('DOMContentLoaded', function() {
-        // 创建一个变量来跟踪是否正在切换图片
         let isTransitioning = false;
+        
+        // 添加函数来控制背景滚动
+        function disableBackgroundScroll() {
+          document.body.style.overflow = 'hidden';
+        }
+        
+        function enableBackgroundScroll() {
+          document.body.style.overflow = '';
+        }
+        
+        // 监听浮窗的打开和关闭
+        const observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length) {
+              const popup = document.querySelector('.poptrox-popup');
+              // 只有当浮窗存在且是可见的时候才禁用滚动
+              if (popup && popup.style.display !== 'none' && popup.style.visibility !== 'hidden') {
+                // 使用 setTimeout 确保浮窗完全显示后再禁用滚动
+                setTimeout(() => {
+                  disableBackgroundScroll();
+                }, 100);
+              }
+            } else if (mutation.removedNodes.length) {
+              const popup = mutation.removedNodes[0];
+              if (popup.classList && popup.classList.contains('poptrox-popup')) {
+                enableBackgroundScroll();
+              }
+            }
+          });
+        });
+        
+        // 开始观察 DOM 变化
+        observer.observe(document.body, { childList: true });
         
         document.addEventListener('mouseover', function(e) {
           // 如果不是导航点或者是当前激活的导航点,则直接返回
@@ -296,6 +328,71 @@
           dots.forEach(dot => dot.classList.remove('active'));
           e.target.classList.add('active');
         });
+        
+        // 修改滚轮事件监听
+        document.addEventListener('wheel', function(e) {
+          const popup = e.target.closest('.poptrox-popup');
+          if (!popup) return;
+          
+          e.preventDefault(); // 阻止默认滚动行为
+          
+          const nav = popup.querySelector('.breadcrumb-nav');
+          if (!nav) return;
+          
+          if (isTransitioning) return; // 如果正在切换则忽略新的切换请求
+          
+          const dots = nav.querySelectorAll('.nav-dot');
+          const images = JSON.parse(nav.dataset.images);
+          const currentIndex = Array.from(dots).findIndex(dot => dot.classList.contains('active'));
+          
+          // 根据滚动方向确定下一个索引
+          let nextIndex;
+          if (Math.abs(e.deltaY) === 0) return; // 忽略值为0的滚动
+          
+          if (e.deltaMode === 0) { // Pixel scrolling
+            if (e.deltaY > 0) {
+              nextIndex = (currentIndex + 1) % images.length;
+            } else {
+              nextIndex = (currentIndex - 1 + images.length) % images.length;
+            }
+          } else { // Line or page scrolling
+            if (e.deltaY > 0) {
+              nextIndex = (currentIndex + 1) % images.length;
+            } else {
+              nextIndex = (currentIndex - 1 + images.length) % images.length;
+            }
+          }
+          
+          const img = popup.querySelector('.pic img');
+          if (img) {
+            isTransitioning = true;
+            
+            // 确保当前图片有过渡效果
+            img.style.transition = 'opacity 0.3s ease-in-out';
+            img.style.opacity = '0';
+            
+            // 等待淡出完成
+            setTimeout(() => {
+              // 切换图片源
+              img.src = images[nextIndex] + '<?php $this->options->zmki_sy() ?>';
+              
+              // 图片加载完成后显示
+              img.onload = function() {
+                img.style.opacity = '1';
+                isTransitioning = false;
+              };
+              
+              // 如果图片加载失败，也要重置状态
+              img.onerror = function() {
+                isTransitioning = false;
+              };
+            }, 300);
+            
+            // 更新导航点状态
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[nextIndex].classList.add('active');
+          }
+        }, { passive: false }); // 需要设置 passive: false 才能调用 preventDefault()
       });
       </script>
   </div>
