@@ -130,23 +130,33 @@
           $start = max(1, min($current - floor($max_pages/2), $total - $max_pages + 1));
           $end = min($start + $max_pages - 1, $total);
           
+          // 获取当前分类路径
+          $category = '';
+          if ($this->is('category')) {
+            $category = $this->getArchiveSlug();
+          }
+          
           // 上一页按钮
           if ($current > 1): 
-            $this->pageLink('<span class="page-btn prev-btn">上一页</span>', 'prev'); 
+            $prevUrl = $category ? $this->options->siteUrl . 'index.php/category/' . $category . '/' . ($current-1) . '/' : $this->options->siteUrl . 'index.php/page/' . ($current-1);
+            echo '<a href="' . $prevUrl . '" class="page-btn prev-btn">上一页</a>';
           endif;
 
           // 页码按钮
           for ($i = $start; $i <= $end; $i++):
             if ($i == $current): ?>
               <span class="page-btn current"><?php echo $i; ?></span>
-            <?php else: ?>
-              <a href="<?php $this->options->siteUrl(); ?>index.php/page/<?php echo $i; ?>/" class="page-btn"><?php echo $i; ?></a>
+            <?php else: 
+              $pageUrl = $category ? $this->options->siteUrl . 'index.php/category/' . $category . '/' . $i . '/' : $this->options->siteUrl . 'index.php/page/' . $i;
+            ?>
+              <a href="<?php echo $pageUrl; ?>" class="page-btn"><?php echo $i; ?></a>
             <?php endif;
           endfor;
 
           // 下一页按钮
           if ($current < $total): 
-            $this->pageLink('<span class="page-btn next-btn">下一页</span>', 'next');
+            $nextUrl = $category ? $this->options->siteUrl . 'index.php/category/' . $category . '/' . ($current+1) . '/' : $this->options->siteUrl . 'index.php/page/' . ($current+1);
+            echo '<a href="' . $nextUrl . '" class="page-btn next-btn">下一页</a>';
           endif; ?>
       </div>
       <?php endif; ?>

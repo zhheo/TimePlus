@@ -1,7 +1,3 @@
-部署：
-
-rsync -avz --progress --chmod=755 ./ root@116.196.68.153:/www/wwwroot/plog.zhheo.com/usr/themes/TimePlus/
-
 # 更新日志
 
 ## 2.15
