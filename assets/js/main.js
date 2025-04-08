@@ -279,6 +279,7 @@ jQuery.event.special.touchmove = {
 				usePopupCaption: true,
 				usePopupCloser: true,
 				usePopupDefaultStyling: false,
+				usePopupEasyClose: !browser.mobile,
 				usePopupForceClose: true,
 				usePopupLoader: true,
 				usePopupNav: true,
