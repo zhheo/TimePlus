@@ -2577,7 +2577,7 @@ span.tag-list a:hover {
   }
 
   .poptrox-popup .caption {
-    bottom: 30px;
+    bottom: 0px;
     position: fixed;
   }
 
@@ -2642,5 +2642,9 @@ span.tag-list a:hover {
   .prev-btn,
   .next-btn {
       padding: 0 15px;
+  }
+
+  .poptrox-popup .tag-categorys a {
+    display: contents;
   }
 }
