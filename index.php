@@ -413,7 +413,58 @@
   <script src="<?php $this->options->themeUrl('assets/js/breakpoints.min.js'); ?>"></script>
   <script src="<?php $this->options->themeUrl('assets/js/util.js'); ?>"></script>
   <script src="<?php $this->options->themeUrl('assets/js/main.js'); ?>"></script>
+      <script>
+document.addEventListener('DOMContentLoaded', function() {
+	//修改代码
+	window.isTransitioning = false;
 
+	function switchImage(nav, img, idx) {
+		window.isTransitioning = true;
+		img.style.transition = 'opacity .3s';
+		img.style.opacity = 0;
+		setTimeout(function() {
+			img.src = JSON.parse(nav.dataset.images)[idx] + '<?php $this->options->zmki_sy() ?>';
+			img.onload = function() {
+				img.style.opacity = 1;
+				setTimeout(() => window.isTransitioning = false, 300);
+			};
+			img.onerror = function() {
+				window.isTransitioning = false;
+			};
+			nav.querySelectorAll('.nav-dot').forEach(d => d.classList.remove('active'));
+			nav.querySelectorAll('.nav-dot')[idx].classList.add('active');
+		}, 300);
+	}
+	var pic = document.querySelector('.poptrox-popup .pic');
+	if (pic) {
+		pic.addEventListener('touchstart', function(e) {
+			if (window.isTransitioning) return;
+			var t = e.touches[0];
+			this.startY = t.clientY;
+			this.startX = t.clientX;
+		}, {
+			passive: true,
+			capture: true
+		});
+		pic.addEventListener('touchend', function(e) {
+			if (window.isTransitioning) return;
+			var t = e.changedTouches[0],
+				dY = t.clientY - this.startY,
+				dX = t.clientX - this.startX;
+			if (Math.abs(dY) > 50 && Math.abs(dY) > Math.abs(dX)) {
+				var nav = pic.closest('.poptrox-popup').querySelector('.breadcrumb-nav'),
+					dots = nav.querySelectorAll('.nav-dot'),
+					cur = Array.from(dots).findIndex(d => d.classList.contains('active')),
+					nxt = dY < 0 && cur < dots.length - 1 ? cur + 1 : dY > 0 && cur > 0 ? cur - 1 : cur;
+				if (nxt !== cur) switchImage(nav, pic.querySelector('img'), nxt);
+			}
+		}, {
+			passive: true,
+			capture: true
+		});
+	}
+});
+      </script>
 </body>
 
 </html>
