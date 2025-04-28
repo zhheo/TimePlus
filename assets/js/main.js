@@ -326,3 +326,95 @@ $(document).ready(function() {
         }
     );
 });
+
+// 添加触摸滑动支持
+document.addEventListener('DOMContentLoaded', function() {
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let isTransitioning = false;
+    const minSwipeDistance = 50; // 最小滑动距离
+
+    document.addEventListener('touchstart', function(e) {
+        const popup = e.target.closest('.poptrox-popup');
+        if (!popup) return;
+        touchStartX = e.touches[0].clientX;
+    }, false);
+
+    document.addEventListener('touchend', function(e) {
+        const popup = e.target.closest('.poptrox-popup');
+        if (!popup) return;
+        
+        touchEndX = e.changedTouches[0].clientX;
+        handleSwipe(popup);
+    }, false);
+
+    function handleSwipe(popup) {
+        if (isTransitioning) return; // 如果正在切换则忽略新的切换请求
+
+        const swipeDistance = touchEndX - touchStartX;
+        if (Math.abs(swipeDistance) < minSwipeDistance) return;
+
+        const nav = popup.querySelector('.breadcrumb-nav');
+        if (!nav) return;
+
+        const dots = nav.querySelectorAll('.nav-dot');
+        const images = JSON.parse(nav.dataset.images);
+        const currentIndex = Array.from(dots).findIndex(dot => dot.classList.contains('active'));
+        
+        // 向左滑动显示下一张，向右滑动显示上一张
+        let nextIndex;
+        if (swipeDistance > 0) {
+            // 向右滑动，显示上一张
+            nextIndex = (currentIndex - 1 + images.length) % images.length;
+        } else {
+            // 向左滑动，显示下一张
+            nextIndex = (currentIndex + 1) % images.length;
+        }
+
+        const imgWrapper = popup.querySelector('.pic');
+        const img = imgWrapper.querySelector('img');
+        if (img) {
+            isTransitioning = true;
+            
+            // 添加过渡动画
+            img.style.transition = 'opacity 0.3s ease-in-out';
+            img.style.opacity = '0';
+
+            // 从当前图片URL中提取后缀
+            const currentUrl = img.src;
+            const suffixMatch = currentUrl.match(/!.*$/);
+            const suffix = suffixMatch ? suffixMatch[0] : '';
+
+            // 等待淡出完成
+            setTimeout(() => {
+                // 获取新的图片URL，使用相同的后缀
+                const newImageUrl = images[nextIndex] + suffix;
+                
+                // 更新图片元素的src和data-src属性
+                img.src = newImageUrl;
+                if (img.hasAttribute('data-src')) {
+                    img.setAttribute('data-src', newImageUrl);
+                }
+                // 更新父元素的background-image（如果存在）
+                if (imgWrapper.style.backgroundImage) {
+                    imgWrapper.style.backgroundImage = `url(${newImageUrl})`;
+                }
+                
+                // 图片加载完成后显示
+                img.onload = function() {
+                    img.style.opacity = '1';
+                    isTransitioning = false;
+                };
+                
+                // 如果图片加载失败，也要重置状态
+                img.onerror = function() {
+                    isTransitioning = false;
+                };
+            }, 300);
+
+            // 更新导航点状态
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[nextIndex].classList.add('active');
+        }
+    }
+});
