@@ -2,7 +2,7 @@
 
 [English README](README_EN.md)
 
-![](/info/timeplus.webp)
+![洪墨时光](https://github.com/user-attachments/assets/54b70c2f-56ec-4e14-98a3-c6f5cbec8108)
 
 本主题基于原作者已倒闭的[Time主题](https://github.com/wclk/time)改进。
 
