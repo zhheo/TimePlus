@@ -2,7 +2,7 @@
 
 [English README](README_EN.md)
 
-![洪墨时光](https://github.com/user-attachments/assets/cfb630cb-8e79-4c50-a2ba-d68316ce74e5)
+![洪墨时光](https://github.com/user-attachments/assets/09d44b6d-5d75-45fb-9a47-1a9ff6e43d6f)
 
 本主题基于原作者已倒闭的[Time主题](https://github.com/wclk/time)改进。
 
