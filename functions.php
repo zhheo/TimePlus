@@ -21,7 +21,7 @@ function themeConfig($form)
     echo  'TimePlus&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp当前版本：' . 'v' . $selfmessage . "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" . '发现新版本:' . '<span style="color:red;"><b>v ' . $message . '</b></span>&nbsp&nbsp请更新，<a href="https://github.com/zhheo/TimePlus/releases" target="_blank">新版本特性</a>';
   }
   //首页名称
-  $IndexName = new Typecho_Widget_Helper_Form_Element_Text('IndexName', NULL, '时光相册', _t('首页的名称(必填)'), _t('输入你的首页显示的名称'));
+  $IndexName = new Typecho_Widget_Helper_Form_Element_Text('IndexName', NULL, '洪墨时光', _t('首页的名称(必填)'), _t('输入你的首页显示的名称'));
   $form->addInput($IndexName);
   //网站图标
   $IconUrl = new Typecho_Widget_Helper_Form_Element_Text('IconUrl', NULL, 'https://bu.dusays.com/2024/04/23/662770aaee40e.webp', _t('网站图标地址'), _t('输入网站的图标（建议200px宽度png）'));
