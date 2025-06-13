@@ -245,19 +245,32 @@
 			$main.poptrox({
 				baseZIndex: 20000,
 				caption: function($a) {
-
 					var s = '';
-
 					$a.nextAll().each(function() {
 						s += this.outerHTML;
 					});
-
 					return s;
-
 				},
 				fadeSpeed: 300,
-				onPopupClose: function() { $body.removeClass('modal-active'); },
-				onPopupOpen: function() { $body.addClass('modal-active'); },
+				onPopupClose: function() { 
+					isPopupActive = false;
+					$body.removeClass('modal-active');
+					// 确保移除所有可能阻止滚动的样式
+					$('html, body').css({
+						'overflow': '',
+						'position': '',
+						'height': '',
+						'width': ''
+					});
+					// 重置触摸状态
+					touchStartX = 0;
+					touchEndX = 0;
+					isTransitioning = false;
+				},
+				onPopupOpen: function() { 
+					isPopupActive = true;
+					$body.addClass('modal-active');
+				},
 				overlayOpacity: 0,
 				popupCloserText: '',
 				popupHeight: 150,
@@ -332,24 +345,100 @@ document.addEventListener('DOMContentLoaded', function() {
     let touchStartX = 0;
     let touchEndX = 0;
     let isTransitioning = false;
-    const minSwipeDistance = 50; // 最小滑动距离
+    let isPopupActive = false;
+    const minSwipeDistance = 50;
+    const $main = $('#main');
+    const $body = $('body');  // 添加 $body 定义
 
-    document.addEventListener('touchstart', function(e) {
+    console.log('触摸事件初始化完成');
+
+    // 监听弹窗状态
+    $main.poptrox({
+        baseZIndex: 20000,
+        caption: function($a) {
+            var s = '';
+            $a.nextAll().each(function() {
+                s += this.outerHTML;
+            });
+            return s;
+        },
+        fadeSpeed: 300,
+        onPopupClose: function() { 
+            isPopupActive = false;
+            $body.removeClass('modal-active');
+            // 确保移除所有可能阻止滚动的样式
+            $('html, body').css({
+                'overflow': '',
+                'position': '',
+                'height': '',
+                'width': ''
+            });
+            // 重置触摸状态
+            touchStartX = 0;
+            touchEndX = 0;
+            isTransitioning = false;
+        },
+        onPopupOpen: function() { 
+            isPopupActive = true;
+            $body.addClass('modal-active');
+        },
+        overlayOpacity: 0,
+        popupCloserText: '',
+        popupHeight: 150,
+        popupLoaderText: '',
+        popupSpeed: 300,
+        popupWidth: 150,
+        selector: '.thumb > a.image',
+        usePopupCaption: true,
+        usePopupCloser: true,
+        usePopupDefaultStyling: false,
+        usePopupForceClose: true,
+        usePopupLoader: true,
+        usePopupNav: true,
+        windowMargin: 50
+    });
+
+    // 添加全局触摸事件监听
+    document.body.addEventListener('touchstart', function(e) {
         const popup = e.target.closest('.poptrox-popup');
-        if (!popup) return;
+        if (!isPopupActive || !popup) return;
         touchStartX = e.touches[0].clientX;
-    }, false);
+    }, { passive: true });
 
-    document.addEventListener('touchend', function(e) {
+    document.body.addEventListener('touchend', function(e) {
         const popup = e.target.closest('.poptrox-popup');
-        if (!popup) return;
-        
+        if (!isPopupActive || !popup) return;
         touchEndX = e.changedTouches[0].clientX;
         handleSwipe(popup);
-    }, false);
+    }, { passive: true });
+
+    // 添加触摸移动事件监听
+    document.body.addEventListener('touchmove', function(e) {
+        const popup = e.target.closest('.poptrox-popup');
+        if (isPopupActive && popup) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    // 添加图片查看器状态变化监听
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.target.classList.contains('poptrox-popup')) {
+                isPopupActive = mutation.target.style.display !== 'none';
+            }
+        });
+    });
+
+    // 开始观察 body 的变化
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['style', 'class']
+    });
 
     function handleSwipe(popup) {
-        if (isTransitioning) return; // 如果正在切换则忽略新的切换请求
+        if (isTransitioning) return;
 
         const swipeDistance = touchEndX - touchStartX;
         if (Math.abs(swipeDistance) < minSwipeDistance) return;
