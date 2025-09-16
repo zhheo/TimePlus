@@ -3,7 +3,7 @@
  * 一款简约的相册主题
  * @package 洪墨时光
  * @author zhheo
- * @version 2.17
+ * @version 2.18
  * @link https://zhheo.com/
  */
 ?>
