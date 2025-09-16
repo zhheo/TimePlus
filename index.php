@@ -407,7 +407,7 @@
       </script>
   </div>
   <!-- Scripts -->
-  <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/1.7.2/jquery.min.js"></script>
+  <script src="<?php $this->options->themeUrl('assets/js/jquery.min.js'); ?>"></script>
   <script src="<?php $this->options->themeUrl('assets/js/jquery.poptrox.min.js'); ?>"></script>
   <script src="<?php $this->options->themeUrl('assets/js/browser.min.js'); ?>"></script>
   <script src="<?php $this->options->themeUrl('assets/js/breakpoints.min.js'); ?>"></script>
