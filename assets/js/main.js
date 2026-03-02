@@ -433,10 +433,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const popup = e.target.closest('.poptrox-popup');
         if (!isPopupActive || !popup) return;
         touchEndX = e.changedTouches[0].clientX;
-        if (isDragging && popup.querySelector('.pic-swipe-track')) {
-            e.preventDefault();
-            endSwipeDrag(popup);
-        } else {
+        const track = popup.querySelector('.pic-swipe-track');
+        const moved = Math.abs(touchEndX - touchStartX);
+        if (isDragging && track) {
+            if (moved > 10) {
+                e.preventDefault();
+                endSwipeDrag(popup);
+            }
+        } else if (moved > minSwipeDistance) {
             handleSwipe(popup);
         }
         isDragging = false;
