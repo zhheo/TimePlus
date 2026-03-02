@@ -255,14 +255,13 @@
 				onPopupClose: function() { 
 					isPopupActive = false;
 					$body.removeClass('modal-active');
-					// 确保移除所有可能阻止滚动的样式
+					document.querySelectorAll('.pic-swipe-wrapper').forEach(function(w) { w.remove(); });
 					$('html, body').css({
 						'overflow': '',
 						'position': '',
 						'height': '',
 						'width': ''
 					});
-					// 重置触摸状态
 					touchStartX = 0;
 					touchEndX = 0;
 					isTransitioning = false;
@@ -340,17 +339,17 @@ $(document).ready(function() {
     );
 });
 
-// 添加触摸滑动支持
+// 添加触摸滑动支持（多图时支持拖动跟手，分页滚动）
 document.addEventListener('DOMContentLoaded', function() {
     let touchStartX = 0;
     let touchEndX = 0;
+    let touchCurrentX = 0;
     let isTransitioning = false;
     let isPopupActive = false;
+    let isDragging = false;
     const minSwipeDistance = 50;
     const $main = $('#main');
-    const $body = $('body');  // 添加 $body 定义
-
-    console.log('触摸事件初始化完成');
+    const $body = $('body');
 
     // 监听弹窗状态
     $main.poptrox({
@@ -366,14 +365,13 @@ document.addEventListener('DOMContentLoaded', function() {
         onPopupClose: function() { 
             isPopupActive = false;
             $body.removeClass('modal-active');
-            // 确保移除所有可能阻止滚动的样式
+            document.querySelectorAll('.pic-swipe-wrapper').forEach(function(w) { w.remove(); });
             $('html, body').css({
                 'overflow': '',
                 'position': '',
                 'height': '',
                 'width': ''
             });
-            // 重置触摸状态
             touchStartX = 0;
             touchEndX = 0;
             isTransitioning = false;
@@ -381,6 +379,14 @@ document.addEventListener('DOMContentLoaded', function() {
         onPopupOpen: function() { 
             isPopupActive = true;
             $body.addClass('modal-active');
+            if ($body.hasClass('touch')) {
+                setTimeout(function() {
+                    const popup = document.querySelector('.poptrox-popup');
+                    if (popup && popup.querySelector('.breadcrumb-nav') && !popup.querySelector('.pic-swipe-track')) {
+                        ensureSwipeStructure(popup);
+                    }
+                }, 350);
+            }
         },
         overlayOpacity: 0,
         popupCloserText: '',
@@ -398,26 +404,42 @@ document.addEventListener('DOMContentLoaded', function() {
         windowMargin: 50
     });
 
-    // 添加全局触摸事件监听
+    // 触摸事件：多图时拖动跟手，松手分页切换
     document.body.addEventListener('touchstart', function(e) {
         const popup = e.target.closest('.poptrox-popup');
         if (!isPopupActive || !popup) return;
         touchStartX = e.touches[0].clientX;
+        touchCurrentX = touchStartX;
+        const nav = popup.querySelector('.breadcrumb-nav');
+        if (nav) {
+            isDragging = true;
+            ensureSwipeStructure(popup);
+        }
     }, { passive: true });
+
+    document.body.addEventListener('touchmove', function(e) {
+        const popup = e.target.closest('.poptrox-popup');
+        if (!isPopupActive || !popup) return;
+        if (isDragging && popup.querySelector('.pic-swipe-track')) {
+            e.preventDefault();
+            touchCurrentX = e.touches[0].clientX;
+            updateSwipePosition(popup);
+        } else if (popup) {
+            e.preventDefault();
+        }
+    }, { passive: false, capture: true });
 
     document.body.addEventListener('touchend', function(e) {
         const popup = e.target.closest('.poptrox-popup');
         if (!isPopupActive || !popup) return;
         touchEndX = e.changedTouches[0].clientX;
-        handleSwipe(popup);
-    }, { passive: true });
-
-    // 添加触摸移动事件监听
-    document.body.addEventListener('touchmove', function(e) {
-        const popup = e.target.closest('.poptrox-popup');
-        if (isPopupActive && popup) {
+        if (isDragging && popup.querySelector('.pic-swipe-track')) {
             e.preventDefault();
+            endSwipeDrag(popup);
+        } else {
+            handleSwipe(popup);
         }
+        isDragging = false;
     }, { passive: false });
 
     // 添加图片查看器状态变化监听
@@ -437,8 +459,124 @@ document.addEventListener('DOMContentLoaded', function() {
         attributeFilter: ['style', 'class']
     });
 
+    function getImageSuffix(popup) {
+        const img = popup.querySelector('.pic img');
+        if (!img || !img.src) return '';
+        const m = img.src.match(/!.*$/);
+        return m ? m[0] : '';
+    }
+
+    function ensureSwipeStructure(popup) {
+        const nav = popup.querySelector('.breadcrumb-nav');
+        const track = popup.querySelector('.pic-swipe-track');
+        const pic = popup.querySelector('.pic');
+        if (!nav || !pic) return;
+        if (track) {
+            pic.querySelectorAll(':scope > img').forEach(function(img) { img.remove(); });
+            return;
+        }
+        const img = pic.querySelector('img');
+        if (!img) return;
+
+        const images = JSON.parse(nav.dataset.images);
+        const suffix = getImageSuffix(popup);
+        const dots = nav.querySelectorAll('.nav-dot');
+        const currentIndex = Array.from(dots).findIndex(d => d.classList.contains('active'));
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'pic-swipe-wrapper';
+        wrapper.style.cssText = 'overflow:hidden;width:100%;touch-action:none;';
+
+        const trackEl = document.createElement('div');
+        trackEl.className = 'pic-swipe-track';
+        trackEl.style.cssText = 'display:flex;width:' + (images.length * 100) + '%;will-change:transform;';
+        trackEl.dataset.currentIndex = currentIndex;
+
+        function createSlide(url, idx) {
+            const slide = document.createElement('div');
+            slide.className = 'pic-swipe-slide';
+            slide.style.cssText = 'flex:0 0 ' + (100 / images.length) + '%;width:' + (100 / images.length) + '%;display:flex;align-items:center;justify-content:center;';
+            var slideImg;
+            if (idx === currentIndex && img.src) {
+                slideImg = img;
+                slideImg.style.cssText = 'max-width:100%;width:100%;height:auto;object-fit:contain;vertical-align:bottom;';
+            } else {
+                slideImg = document.createElement('img');
+                slideImg.src = url + suffix;
+                slideImg.style.cssText = 'max-width:100%;width:100%;height:auto;object-fit:contain;vertical-align:bottom;';
+                slideImg.alt = '';
+            }
+            slide.appendChild(slideImg);
+            return slide;
+        }
+
+        images.forEach(function(url, idx) { trackEl.appendChild(createSlide(url, idx)); });
+        wrapper.appendChild(trackEl);
+        pic.appendChild(wrapper);
+
+        requestAnimationFrame(function() {
+            const slideWidth = trackEl.querySelector('.pic-swipe-slide')?.offsetWidth || trackEl.offsetWidth;
+            trackEl.style.transform = 'translateX(-' + (currentIndex * slideWidth) + 'px)';
+        });
+    }
+
+    function getSlideWidth(track) {
+        const slide = track.querySelector('.pic-swipe-slide');
+        const w = slide ? slide.offsetWidth : 0;
+        if (w > 0) return w;
+        const wrapper = track.closest('.pic-swipe-wrapper');
+        return wrapper ? wrapper.offsetWidth : track.offsetWidth;
+    }
+
+    function updateSwipePosition(popup) {
+        const track = popup.querySelector('.pic-swipe-track');
+        const nav = popup.querySelector('.breadcrumb-nav');
+        if (!track || !nav) return;
+
+        const slides = track.querySelectorAll('.pic-swipe-slide');
+        const slideWidth = getSlideWidth(track);
+        const currentIndex = parseInt(track.dataset.currentIndex) || 0;
+        let deltaX = touchCurrentX - touchStartX;
+
+        if (currentIndex <= 0 && deltaX > 0) deltaX = deltaX * 0.3;
+        if (currentIndex >= slides.length - 1 && deltaX < 0) deltaX = deltaX * 0.3;
+
+        const offset = -currentIndex * slideWidth + deltaX;
+        track.style.transition = 'none';
+        track.style.transform = `translateX(${offset}px)`;
+    }
+
+    function endSwipeDrag(popup) {
+        const track = popup.querySelector('.pic-swipe-track');
+        const nav = popup.querySelector('.breadcrumb-nav');
+        if (!track || !nav) return;
+
+        const dots = nav.querySelectorAll('.nav-dot');
+        const images = JSON.parse(nav.dataset.images);
+        let currentIndex = parseInt(track.dataset.currentIndex) || 0;
+        const deltaX = touchEndX - touchStartX;
+        const slideWidth = getSlideWidth(track);
+        const threshold = slideWidth * 0.2;
+
+        if (deltaX < -threshold && currentIndex < images.length - 1) {
+            currentIndex++;
+        } else if (deltaX > threshold && currentIndex > 0) {
+            currentIndex--;
+        }
+
+        track.dataset.currentIndex = currentIndex;
+        track.style.transition = 'transform 0.3s ease-out';
+        track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+
+        dots.forEach(d => d.classList.remove('active'));
+        dots[currentIndex].classList.add('active');
+    }
+
     function handleSwipe(popup) {
         if (isTransitioning) return;
+
+        const track = popup.querySelector('.pic-swipe-track');
+        if (track) return;
 
         const swipeDistance = touchEndX - touchStartX;
         if (Math.abs(swipeDistance) < minSwipeDistance) return;
@@ -450,13 +588,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const images = JSON.parse(nav.dataset.images);
         const currentIndex = Array.from(dots).findIndex(dot => dot.classList.contains('active'));
         
-        // 向左滑动显示下一张，向右滑动显示上一张
         let nextIndex;
         if (swipeDistance > 0) {
-            // 向右滑动，显示上一张
             nextIndex = (currentIndex - 1 + images.length) % images.length;
         } else {
-            // 向左滑动，显示下一张
             nextIndex = (currentIndex + 1) % images.length;
         }
 
@@ -464,44 +599,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const img = imgWrapper.querySelector('img');
         if (img) {
             isTransitioning = true;
-            
-            // 添加过渡动画
+            const suffix = getImageSuffix(popup);
             img.style.transition = 'opacity 0.3s ease-in-out';
             img.style.opacity = '0';
 
-            // 从当前图片URL中提取后缀
-            const currentUrl = img.src;
-            const suffixMatch = currentUrl.match(/!.*$/);
-            const suffix = suffixMatch ? suffixMatch[0] : '';
-
-            // 等待淡出完成
             setTimeout(() => {
-                // 获取新的图片URL，使用相同的后缀
-                const newImageUrl = images[nextIndex] + suffix;
-                
-                // 更新图片元素的src和data-src属性
-                img.src = newImageUrl;
-                if (img.hasAttribute('data-src')) {
-                    img.setAttribute('data-src', newImageUrl);
-                }
-                // 更新父元素的background-image（如果存在）
-                if (imgWrapper.style.backgroundImage) {
-                    imgWrapper.style.backgroundImage = `url(${newImageUrl})`;
-                }
-                
-                // 图片加载完成后显示
+                img.src = images[nextIndex] + suffix;
                 img.onload = function() {
                     img.style.opacity = '1';
                     isTransitioning = false;
                 };
-                
-                // 如果图片加载失败，也要重置状态
-                img.onerror = function() {
-                    isTransitioning = false;
-                };
+                img.onerror = function() { isTransitioning = false; };
             }, 300);
 
-            // 更新导航点状态
             dots.forEach(dot => dot.classList.remove('active'));
             dots[nextIndex].classList.add('active');
         }

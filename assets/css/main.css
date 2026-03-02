@@ -2572,6 +2572,34 @@ span.tag-list a:hover {
     margin-bottom: 120px;
   }
 
+  .poptrox-popup .pic {
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .poptrox-popup .pic img,
+  .poptrox-popup .pic-swipe-slide img {
+    width: 100%;
+    max-width: 100vw;
+    object-fit: contain;
+  }
+
+  .poptrox-popup .pic-swipe-wrapper {
+    width: 100%;
+  }
+
+  .poptrox-popup .pic-swipe-track {
+    width: 100%;
+  }
+
+  .poptrox-popup .pic-swipe-slide {
+    width: 100%;
+  }
+
+  .poptrox-popup .pic-swipe-wrapper {
+    touch-action: none;
+  }
+
   .poptrox-popup:before {
     display: none;
   }

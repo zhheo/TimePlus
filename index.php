@@ -308,33 +308,30 @@
           
           if (!popup) return;
           
-          const img = popup.querySelector('.pic img');
-          if (img) {
-            isTransitioning = true;
-            
-            // 确保当前图片有过渡效果
-            img.style.transition = 'opacity 0.3s ease-in-out';
-            img.style.opacity = '0';
-            
-            // 等待淡出完成
-            setTimeout(() => {
-              // 切换图片源
-              img.src = images[index] + '<?php $this->options->zmki_sy() ?>';
-              
-              // 图片加载完成后显示
-              img.onload = function() {
-                img.style.opacity = '1';
-                isTransitioning = false;
-              };
-              
-              // 如果图片加载失败，也要重置状态
-              img.onerror = function() {
-                isTransitioning = false;
-              };
-            }, 300);
+          const track = popup.querySelector('.pic-swipe-track');
+          if (track) {
+            track.dataset.currentIndex = index;
+            const slide = track.querySelector('.pic-swipe-slide');
+            const slideWidth = slide ? slide.offsetWidth : track.offsetWidth;
+            track.style.transition = 'transform 0.3s ease-out';
+            track.style.transform = 'translateX(-' + (index * slideWidth) + 'px)';
+          } else {
+            const img = popup.querySelector('.pic img');
+            if (img) {
+              isTransitioning = true;
+              img.style.transition = 'opacity 0.3s ease-in-out';
+              img.style.opacity = '0';
+              setTimeout(() => {
+                img.src = images[index] + '<?php $this->options->zmki_sy() ?>';
+                img.onload = function() {
+                  img.style.opacity = '1';
+                  isTransitioning = false;
+                };
+                img.onerror = function() { isTransitioning = false; };
+              }, 300);
+            }
           }
           
-          // 更新导航点状态
           dots.forEach(dot => dot.classList.remove('active'));
           e.target.classList.add('active');
         });
@@ -373,36 +370,161 @@
             }
           }
           
+          const track = popup.querySelector('.pic-swipe-track');
+          if (track) {
+            track.dataset.currentIndex = nextIndex;
+            const slide = track.querySelector('.pic-swipe-slide');
+            const slideWidth = slide ? slide.offsetWidth : track.offsetWidth;
+            track.style.transition = 'transform 0.3s ease-out';
+            track.style.transform = 'translateX(-' + (nextIndex * slideWidth) + 'px)';
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[nextIndex].classList.add('active');
+          } else {
+            const img = popup.querySelector('.pic img');
+            if (img) {
+              isTransitioning = true;
+              img.style.transition = 'opacity 0.3s ease-in-out';
+              img.style.opacity = '0';
+              setTimeout(() => {
+                img.src = images[nextIndex] + '<?php $this->options->zmki_sy() ?>';
+                img.onload = function() {
+                  img.style.opacity = '1';
+                  isTransitioning = false;
+                };
+                img.onerror = function() { isTransitioning = false; };
+              }, 300);
+              dots.forEach(dot => dot.classList.remove('active'));
+              dots[nextIndex].classList.add('active');
+            }
+          }
+        }, { passive: false });
+        
+        // nav-next/nav-previous 点击：多图文章内先切换同文章图片，最后一张/第一张才切换文章
+        document.addEventListener('click', function(e) {
+          const navNext = e.target.closest('.nav-next');
+          const navPrevious = e.target.closest('.nav-previous');
+          if (!navNext && !navPrevious) return;
+          
+          const popup = (navNext || navPrevious).closest('.poptrox-popup');
+          if (!popup) return;
+          
+          const nav = popup.querySelector('.breadcrumb-nav');
+          if (!nav) return; // 单图文章，交给 Poptrox 默认处理
+          
+          if (isTransitioning) return;
+          
+          const dots = nav.querySelectorAll('.nav-dot');
+          const images = JSON.parse(nav.dataset.images);
+          const currentIndex = Array.from(dots).findIndex(dot => dot.classList.contains('active'));
+          
+          let nextIndex;
+          let handled = false;
+          
+          if (navNext) {
+            if (currentIndex < images.length - 1) {
+              nextIndex = currentIndex + 1;
+              handled = true;
+            }
+          } else {
+            if (currentIndex > 0) {
+              nextIndex = currentIndex - 1;
+              handled = true;
+            }
+          }
+          
+          if (handled) {
+            e.preventDefault();
+            e.stopPropagation();
+            const track = popup.querySelector('.pic-swipe-track');
+            if (track) {
+              track.dataset.currentIndex = nextIndex;
+              const slide = track.querySelector('.pic-swipe-slide');
+              const slideWidth = slide ? slide.offsetWidth : track.offsetWidth;
+              track.style.transition = 'transform 0.3s ease-out';
+              track.style.transform = 'translateX(-' + (nextIndex * slideWidth) + 'px)';
+            } else {
+              const img = popup.querySelector('.pic img');
+              if (img) {
+                isTransitioning = true;
+                img.style.transition = 'opacity 0.3s ease-in-out';
+                img.style.opacity = '0';
+                setTimeout(() => {
+                  img.src = images[nextIndex] + '<?php $this->options->zmki_sy() ?>';
+                  img.onload = function() {
+                    img.style.opacity = '1';
+                    isTransitioning = false;
+                  };
+                  img.onerror = function() { isTransitioning = false; };
+                }, 300);
+              }
+            }
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[nextIndex].classList.add('active');
+          }
+        }, true);
+        
+        // 快捷键（左/右方向键、空格）：与 nav 按钮相同逻辑
+        document.addEventListener('keydown', function(e) {
+          const overlay = document.querySelector('.poptrox-overlay');
+          if (!overlay || overlay.style.display === 'none') return;
+          const popup = overlay.querySelector('.poptrox-popup');
+          if (!popup) return;
+          
+          const isNext = e.keyCode === 39; // 右方向键
+          const isPrevious = e.keyCode === 37 || e.keyCode === 32; // 左方向键、空格
+          if (!isNext && !isPrevious) return;
+          
+          const nav = popup.querySelector('.breadcrumb-nav');
+          if (!nav) return;
+          
+          if (isTransitioning) return;
+          
+          const dots = nav.querySelectorAll('.nav-dot');
+          const images = JSON.parse(nav.dataset.images);
+          const currentIndex = Array.from(dots).findIndex(dot => dot.classList.contains('active'));
           const img = popup.querySelector('.pic img');
-          if (img) {
+          if (!img) return;
+          
+          let nextIndex;
+          let handled = false;
+          
+          if (isNext) {
+            if (currentIndex < images.length - 1) {
+              nextIndex = currentIndex + 1;
+              handled = true;
+            }
+          } else {
+            if (currentIndex > 0) {
+              nextIndex = currentIndex - 1;
+              handled = true;
+            }
+          }
+          
+          if (handled) {
+            e.preventDefault();
+            e.stopPropagation();
             isTransitioning = true;
             
-            // 确保当前图片有过渡效果
             img.style.transition = 'opacity 0.3s ease-in-out';
             img.style.opacity = '0';
             
-            // 等待淡出完成
             setTimeout(() => {
-              // 切换图片源
               img.src = images[nextIndex] + '<?php $this->options->zmki_sy() ?>';
               
-              // 图片加载完成后显示
               img.onload = function() {
                 img.style.opacity = '1';
                 isTransitioning = false;
               };
               
-              // 如果图片加载失败，也要重置状态
               img.onerror = function() {
                 isTransitioning = false;
               };
             }, 300);
             
-            // 更新导航点状态
             dots.forEach(dot => dot.classList.remove('active'));
             dots[nextIndex].classList.add('active');
           }
-        }, { passive: false }); // 需要设置 passive: false 才能调用 preventDefault()
+        }, true);
       });
       </script>
   </div>
